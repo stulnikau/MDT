@@ -12,6 +12,11 @@ public class GUIFrame extends JFrame implements Runnable {
         super.setTitle("Maze Design Tool");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Pack components
+        this.pack();
+        // Place the window in the middle of the screen
+        this.setLocationRelativeTo(null);
+        // Set window to visible
         this.setVisible(true);
     }
 
