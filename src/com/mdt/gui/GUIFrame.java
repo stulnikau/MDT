@@ -5,7 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The top-level container of the application. All GUI panels and elements
+ * are placed within GUIFrame.
+ * The class also defines static constants for fonts and other resources
+ * used across the GUI.
+ */
 public class GUIFrame extends JFrame implements ActionListener, Runnable {
+    // Define some fonts for use application-wide
+    public static final Font SYSTEM_FONT = new JLabel().getFont(); // Default system font
+    public static final Font HEADING_1 = GUIFrame.SYSTEM_FONT.deriveFont(Font.BOLD, 30.0F);
+    public static final Font HEADING_2 = GUIFrame.SYSTEM_FONT.deriveFont(Font.BOLD, 24.0F);
+    public static final Font HEADING_3 = GUIFrame.SYSTEM_FONT.deriveFont(Font.BOLD, 20.0F);
+
     LandingPanel landingPanel;
     AddMetadataPanel AddMetadataPanel;
 
@@ -15,7 +27,7 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
      */
     private void createAndShowGUI() {
         // Frame setup
-        super.setTitle("Maze Design Tool");
+        super.setTitle("Welcome to Maze Design Tool");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
@@ -44,6 +56,10 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         createAndShowGUI();
     }
 
+    /**
+     * Processes an ActionEvent
+     * @param e ActionEvent originating from a component
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
