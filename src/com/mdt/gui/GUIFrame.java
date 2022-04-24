@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class GUIFrame extends JFrame implements ActionListener, Runnable {
     LandingPanel landingPanel;
+    AddMetadataPanel AddMetadataPanel;
 
     /**
      * Create the GUI and show it. For thread safety, this method should be
@@ -20,8 +21,12 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
 
         // Add components
         // Panel for the Landing screen
-        landingPanel = new LandingPanel();
-        this.getContentPane().add(landingPanel, BorderLayout.CENTER);
+        //landingPanel = new LandingPanel();
+        //this.getContentPane().add(landingPanel, BorderLayout.CENTER);
+        AddMetadataPanel =  new AddMetadataPanel();
+        this.getContentPane().add(AddMetadataPanel, BorderLayout.CENTER);
+
+
 
         // Pack components
         this.pack();
