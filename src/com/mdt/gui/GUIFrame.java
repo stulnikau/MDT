@@ -24,6 +24,7 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
     private LandingPanel landingPanel;
     private AddMetadataPanel addMetadataPanel;
     private MazeGenerationPanel mazeGenerationPanel;
+    private ExportDialog exportDialog;
 
     private JPanel mainPanel;
     private CardLayout cardLayout;
@@ -49,9 +50,11 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         // Panel for adding metadata when creating a new maze
         addMetadataPanel = new AddMetadataPanel();
         mainPanel.add(addMetadataPanel, "AddMetadata");
-        //Panel for generating and customizing Maze
+        // Panel for generating and customizing Maze
         mazeGenerationPanel = new MazeGenerationPanel();
         mainPanel.add(mazeGenerationPanel, "MazeGeneration");
+        // Dialog for exporting mazes
+        exportDialog = new ExportDialog(this);
 
         // Add mainPanel to JFrame
         this.getContentPane().add(mainPanel, BorderLayout.CENTER);
@@ -95,8 +98,13 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
     }
 
     public void showMazeGeneration() {
-        super.setTitle(" Maze Name");
+        super.setTitle("Maze Name");
         cardLayout.show(mainPanel,"MazeGeneration");
+    }
+
+    public void showExportDialog() {
+        exportDialog.setLocationRelativeTo(this);
+        exportDialog.setVisible(true);
     }
 
     /**
@@ -111,7 +119,7 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
             showNewMazeDialog();
         } else if (landingPanel.landingControlPanel.exportItems.equals(src)) {
             int[] rowsToExport = landingPanel.mazeBrowserTable.getSelectedRows();
-            // Pavel: Link to export dialog
+            showExportDialog();
         } else if (addMetadataPanel.progressControlPanel.nextButton.equals(src)) {
             showMazeGeneration();
         } else if (addMetadataPanel.progressControlPanel.prevButton.equals(src)) {
@@ -121,6 +129,5 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         } else if (mazeGenerationPanel.progressControlPanel.prevButton.equals(src)) {
             showNewMazeDialog();
         }
-
     }
 }
