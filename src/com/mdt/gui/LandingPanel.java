@@ -10,13 +10,14 @@ import java.awt.event.ActionListener;
  * to export previous mazes from a table list. The options at the top of
  * the panel are displayed by the LandingControlPanel panel. The list of
  * previous mazes is contained in a JScrollPane that holds the
- * MazeBrowserTable table.
+ * MazeBrowserTable table. Action listeners for JButtons are defined in
+ * the GUIFrame class.
  * @see LandingControlPanel
  * @see MazeBrowserTable
  */
-public class LandingPanel extends JPanel implements ActionListener {
-    private final LandingControlPanel landingControlPanel;
-    private final MazeBrowserTable mazeBrowserTable;
+public class LandingPanel extends JPanel {
+    public final LandingControlPanel landingControlPanel;
+    public final MazeBrowserTable mazeBrowserTable;
 
     /**
      * Creates a new LandingPanel to be viewed in the GUI
@@ -34,23 +35,5 @@ public class LandingPanel extends JPanel implements ActionListener {
         // Add some padding on the sides
         this.add(Box.createHorizontalStrut(30), BorderLayout.EAST);
         this.add(Box.createHorizontalStrut(30), BorderLayout.WEST);
-    }
-
-    /**
-     * Processes an ActionEvent
-     * @param e ActionEvent originating from a component
-     */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
-        // Handle button presses
-        if (src == landingControlPanel.exportItems) {
-            int[] rowsToExport = mazeBrowserTable.getSelectedRows();
-            // Link to export dialog
-        } else if (src == landingControlPanel.newMaze) {
-            // Link to new maze dialog
-        }
-
-        // Handle any other events
     }
 }

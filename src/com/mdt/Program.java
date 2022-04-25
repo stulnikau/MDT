@@ -7,7 +7,8 @@ import javax.swing.*;
 
 /**
  * Entry point to the application. Holds references to the components
- * of the application, including the GUI and Maze Database.
+ * of the application, including the GUI and backend services such as
+ * the Maze Database.
  * @see GUIFrame
  * @see MazeDatabase
  */
