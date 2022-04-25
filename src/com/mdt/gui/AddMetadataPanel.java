@@ -27,7 +27,7 @@ public class AddMetadataPanel extends JPanel {
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 3;
-        metadataPanel.add(header, c);
+       metadataPanel.add(header, c);
 
         c.gridwidth = 1;
         c.gridy = 1;
