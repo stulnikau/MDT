@@ -33,7 +33,7 @@ public class LandingPanel extends JPanel {
         this.add(mazeBrowserScrollPane, BorderLayout.CENTER);
 
         // Add some padding on the sides
-        this.add(Box.createHorizontalStrut(30), BorderLayout.EAST);
-        this.add(Box.createHorizontalStrut(30), BorderLayout.WEST);
+        this.add(Box.createHorizontalStrut(5), BorderLayout.EAST);
+        this.add(Box.createHorizontalStrut(5), BorderLayout.WEST);
     }
 }
