@@ -28,7 +28,7 @@ public class LandingControlPanel extends JPanel {
         // Some horizontal padding before the heading
         c.weightx = 0;
         c.gridx = 0;
-        this.add(Box.createHorizontalStrut(5), c);
+        this.add(Box.createHorizontalStrut(GUIFrame.PADDING_WIDTH), c);
 
         c.weightx = 1;
         c.gridx = 1;
