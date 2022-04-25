@@ -17,7 +17,9 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
     public static final Font SYSTEM_FONT = new JLabel().getFont(); // Default system font
     public static final Font HEADING_1 = GUIFrame.SYSTEM_FONT.deriveFont(Font.BOLD, 30.0F); // Large heading
     public static final Font HEADING_2 = GUIFrame.SYSTEM_FONT.deriveFont(Font.BOLD, 24.0F); // Medium heading
-    public static final Font HEADING_3 = GUIFrame.SYSTEM_FONT.deriveFont(Font.BOLD, 16.0F); // Small heading
+    public static final Font HEADING_3 = GUIFrame.SYSTEM_FONT.deriveFont(Font.BOLD, 14.0F); // Small heading
+    // Consistent padding across the GUI
+    public static final int PADDING_WIDTH = 5;
 
     private LandingPanel landingPanel;
     private AddMetadataPanel addMetadataPanel;
@@ -53,6 +55,8 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         // Adding action listeners
         landingPanel.landingControlPanel.newMaze.addActionListener(this);
         landingPanel.landingControlPanel.exportItems.addActionListener(this);
+        addMetadataPanel.progressControlPanel.prevButton.addActionListener(this);
+        addMetadataPanel.progressControlPanel.nextButton.addActionListener(this);
 
         // Pack components
         this.pack();
@@ -79,6 +83,11 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         cardLayout.show(mainPanel, "AddMetadata");
     }
 
+    public void showLanding() {
+        super.setTitle("Welcome to Maze Design Tool");
+        cardLayout.show(mainPanel, "Landing");
+    }
+
     /**
      * Processes an ActionEvent
      * @param e ActionEvent originating from a component
@@ -87,11 +96,15 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
         // Handle button presses
-        if (src == landingPanel.landingControlPanel.newMaze) {
+        if (landingPanel.landingControlPanel.newMaze.equals(src)) {
             showNewMazeDialog();
-        } else if (src == landingPanel.landingControlPanel.exportItems) {
+        } else if (landingPanel.landingControlPanel.exportItems.equals(src)) {
             int[] rowsToExport = landingPanel.mazeBrowserTable.getSelectedRows();
-            // Link to export dialog
+            // Pavel: Link to export dialog
+        } else if (addMetadataPanel.progressControlPanel.nextButton.equals(src)) {
+            // Raghav: Link to your JPanel
+        } else if (addMetadataPanel.progressControlPanel.prevButton.equals(src)) {
+            showLanding();
         }
     }
 }
