@@ -118,8 +118,7 @@ public class AddMetadataPanel extends JPanel {
         this.add(metadataPanel, BorderLayout.CENTER);
 
         // Add some padding on the sides
-        this.add(Box.createHorizontalStrut(5), BorderLayout.EAST);
-        this.add(Box.createHorizontalStrut(5), BorderLayout.WEST);
+        this.add(Box.createHorizontalStrut(GUIFrame.PADDING_WIDTH), BorderLayout.EAST);
+        this.add(Box.createHorizontalStrut(GUIFrame.PADDING_WIDTH), BorderLayout.WEST);
     }
-
 }

@@ -4,6 +4,7 @@ import java.awt.*;
 
 public class MazeCanvasPanel extends JPanel{
 
+
     //center
 
 }

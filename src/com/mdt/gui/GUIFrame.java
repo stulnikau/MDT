@@ -23,6 +23,7 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
 
     private LandingPanel landingPanel;
     private AddMetadataPanel addMetadataPanel;
+    private MazeGenerationPanel mazeGenerationPanel;
 
     private JPanel mainPanel;
     private CardLayout cardLayout;
@@ -48,6 +49,9 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         // Panel for adding metadata when creating a new maze
         addMetadataPanel = new AddMetadataPanel();
         mainPanel.add(addMetadataPanel, "AddMetadata");
+        //Panel for generating and customizing Maze
+        mazeGenerationPanel = new MazeGenerationPanel();
+        mainPanel.add(mazeGenerationPanel, "MazeGeneration");
 
         // Add mainPanel to JFrame
         this.getContentPane().add(mainPanel, BorderLayout.CENTER);
@@ -57,6 +61,8 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         landingPanel.landingControlPanel.exportItems.addActionListener(this);
         addMetadataPanel.progressControlPanel.prevButton.addActionListener(this);
         addMetadataPanel.progressControlPanel.nextButton.addActionListener(this);
+        mazeGenerationPanel.progressControlPanel.prevButton.addActionListener(this);
+        mazeGenerationPanel.progressControlPanel.nextButton.addActionListener(this);
 
         // Pack components
         this.pack();
@@ -88,6 +94,11 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         cardLayout.show(mainPanel, "Landing");
     }
 
+    public void showMazeGeneration() {
+        super.setTitle(" Maze Name");
+        cardLayout.show(mainPanel,"MazeGeneration");
+    }
+
     /**
      * Processes an ActionEvent
      * @param e ActionEvent originating from a component
@@ -102,9 +113,14 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
             int[] rowsToExport = landingPanel.mazeBrowserTable.getSelectedRows();
             // Pavel: Link to export dialog
         } else if (addMetadataPanel.progressControlPanel.nextButton.equals(src)) {
-            // Raghav: Link to your JPanel
+            showMazeGeneration();
         } else if (addMetadataPanel.progressControlPanel.prevButton.equals(src)) {
             showLanding();
+        } else if (mazeGenerationPanel.progressControlPanel.nextButton.equals(src)) {
+            showLanding();
+        } else if (mazeGenerationPanel.progressControlPanel.prevButton.equals(src)) {
+            showNewMazeDialog();
         }
+
     }
 }
