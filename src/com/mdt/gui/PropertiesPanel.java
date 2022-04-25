@@ -15,6 +15,7 @@ public class PropertiesPanel extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
 
+
         // Heading
         c.weightx = 0;
         c.gridx = 0;
