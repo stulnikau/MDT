@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
  * maze. Contained within LandingPanel
  * @see LandingPanel
  */
-public class LandingControlPanel extends JPanel implements ActionListener {
-    JLabel controlPanelHeading;
-    JButton exportItems;
-    JButton newMaze;
+public class LandingControlPanel extends JPanel {
+    private final JLabel controlPanelHeading;
+    public JButton exportItems;
+    public JButton newMaze;
 
     /**
      * Handles the configuration of the panel layout using the
@@ -56,14 +56,5 @@ public class LandingControlPanel extends JPanel implements ActionListener {
         newMaze = new JButton("New Maze");
 
         setupLayout();
-    }
-
-    /**
-     * Processes an ActionEvent
-     * @param e ActionEvent originating from a component
-     */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
     }
 }
