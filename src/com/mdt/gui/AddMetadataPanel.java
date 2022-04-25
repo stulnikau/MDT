@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class AddMetadataPanel extends JPanel {
     private final JPanel metadataPanel;
+    private final JLabel header;
     private final JLabel namePrompt;
     private final JLabel authorPrompt;
     private final JTextField nameInput;
@@ -15,23 +16,29 @@ public class AddMetadataPanel extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
 
         c.weightx = 0;
+        c.gridx = 0;
         c.gridy = 0;
+        c.gridwidth = 2;
+        metadataPanel.add(header, c);
+
+        c.gridwidth = 1;
+        c.gridy = 1;
         c.ipadx = 5;
         metadataPanel.add(namePrompt, c);
 
-        c.gridy = 1;
+        c.gridy = 2;
         metadataPanel.add(authorPrompt, c);
 
         c.weightx = 1;
         c.ipadx = 0;
         c.gridx = 1;
-        c.gridy = 0;
+        c.gridy = 1;
         metadataPanel.add(nameInput, c);
 
-        c.gridy = 1;
+        c.gridy = 2;
         metadataPanel.add(authorInput, c);
 
-        c.gridy = 2;
+        c.gridy = 3;
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.LINE_END;
         c.weighty = 100.0;
@@ -42,9 +49,8 @@ public class AddMetadataPanel extends JPanel {
     public AddMetadataPanel() {
         super(new BorderLayout());
 
-        JLabel header = new JLabel("New Maze");
+        header = new JLabel("New Maze");
         header.setFont(GUIFrame.HEADING_2);
-        this.add(header, BorderLayout.NORTH);
 
         metadataPanel = new JPanel(new GridBagLayout());
 
