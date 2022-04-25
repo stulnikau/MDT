@@ -1,9 +1,12 @@
 package com.mdt.gui;
 
+import com.mdt.gui.generics.ProgressControlPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class AddMetadataPanel extends JPanel {
+    public ProgressControlPanel progressControlPanel;
     private final JPanel metadataPanel;
     private final JLabel header;
     private final JLabel mazeOptionsHeader;
@@ -48,7 +51,7 @@ public class AddMetadataPanel extends JPanel {
         c.gridx = 0;
         c.gridy = 3;
         c.gridwidth = 3;
-        metadataPanel.add(new JSeparator(JSeparator.HORIZONTAL));
+        metadataPanel.add(new JSeparator(JSeparator.HORIZONTAL), c);
 
         // Maze options header
         c.gridy = 4;
@@ -88,6 +91,8 @@ public class AddMetadataPanel extends JPanel {
     public AddMetadataPanel() {
         super(new BorderLayout());
 
+        progressControlPanel = new ProgressControlPanel("Next", "Back");
+
         header = new JLabel("New Maze");
         header.setFont(GUIFrame.HEADING_2);
 
@@ -102,13 +107,14 @@ public class AddMetadataPanel extends JPanel {
         widthPrompt = new JLabel("Width:");
         heightPrompt = new JLabel("Height:");
 
-        widthInput = new JTextField("20");
-        heightInput = new JTextField("20");
+        widthInput = new JTextField(" 20");
+        heightInput = new JTextField(" 20");
 
         mazeOptionsHeader = new JLabel("Maze Dimensions");
         mazeOptionsHeader.setFont(GUIFrame.HEADING_3);
 
         setupLayout();
+        this.add(progressControlPanel, BorderLayout.SOUTH);
         this.add(metadataPanel, BorderLayout.CENTER);
 
         // Add some padding on the sides
