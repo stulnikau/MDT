@@ -1,8 +1,12 @@
 package com.mdt.gui;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class PropertiesPanel extends JPanel {
+
+public class PropertiesPanel extends JPanel implements ActionListener{
     private final JPanel propertiesPanel;
     private final JLabel header;
     private final JLabel reachabilityLabel;
@@ -10,6 +14,7 @@ public class PropertiesPanel extends JPanel {
     private final JButton autoGenerate;
     private final JLabel solutionPrompt;
     private final JCheckBox solutionStatus;
+    final JButton logoPrompt;
 
     private void setupLayout() {
         GridBagConstraints c = new GridBagConstraints();
@@ -55,6 +60,11 @@ public class PropertiesPanel extends JPanel {
         c.gridy = 6;
         propertiesPanel.add(autoGenerate, c);
 
+        // Insert Logo Button
+        c.gridx = 0;
+        c.gridy = 7;
+        propertiesPanel.add(logoPrompt, c);
+
         // Fill the remainder so that it's not empty
         c.ipadx = 0;
         c.gridx = 0;
@@ -76,6 +86,8 @@ public class PropertiesPanel extends JPanel {
         deadEndLabel = new JLabel("Dead end cells: 16%");
         autoGenerate = new JButton("Autogenerate Maze");
         solutionPrompt = new JLabel("Show maze solution");
+        logoPrompt = new JButton("Insert Logo");
+        logoPrompt.addActionListener(this);
         solutionStatus = new JCheckBox();
         propertiesPanel = new JPanel(new GridBagLayout());
 
@@ -86,4 +98,17 @@ public class PropertiesPanel extends JPanel {
         this.add(Box.createHorizontalStrut(GUIFrame.PADDING_WIDTH), BorderLayout.EAST);
         this.add(Box.createHorizontalStrut(GUIFrame.PADDING_WIDTH), BorderLayout.WEST);
     }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e){
+        if (e.getSource() == logoPrompt){
+            JFileChooser fileChooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "png", "gif", "bmp");
+            fileChooser.setFileFilter(filter);
+            fileChooser.showOpenDialog(null);
+
+        }
+    }
+
 }
