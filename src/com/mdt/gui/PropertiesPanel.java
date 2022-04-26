@@ -14,7 +14,7 @@ public class PropertiesPanel extends JPanel implements ActionListener{
     private final JButton autoGenerate;
     private final JLabel solutionPrompt;
     private final JCheckBox solutionStatus;
-    final JButton logoPrompt;
+    private final JButton logoPrompt;
 
     private void setupLayout() {
         GridBagConstraints c = new GridBagConstraints();
