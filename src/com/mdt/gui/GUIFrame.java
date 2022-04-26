@@ -121,6 +121,5 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         } else if (mazeGenerationPanel.progressControlPanel.prevButton.equals(src)) {
             showNewMazeDialog();
         }
-
     }
 }
