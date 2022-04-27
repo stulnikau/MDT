@@ -19,13 +19,7 @@ public class MazeGenerationPanel extends JPanel {
         this.add(propertiesPanel, BorderLayout.EAST);
         this.add(mazeCanvasPanel, BorderLayout.CENTER);
         this.add(progressControlPanel, BorderLayout.SOUTH);
-
-
-
     }
-
-
-
 }
 
 
