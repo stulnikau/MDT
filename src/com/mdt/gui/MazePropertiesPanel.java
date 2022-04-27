@@ -1,19 +1,15 @@
 package com.mdt.gui;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class MazePropertiesPanel extends JPanel implements ActionListener{
+public class MazePropertiesPanel extends JPanel {
     private final JLabel header;
     private final JLabel reachabilityLabel;
     private final JLabel deadEndLabel;
     private final JButton autoGenerate;
     private final JLabel solutionPrompt;
     private final JCheckBox solutionStatus;
-    private final JButton logoPrompt;
 
     private void setupLayout() {
         GridBagConstraints c = new GridBagConstraints();
@@ -59,11 +55,6 @@ public class MazePropertiesPanel extends JPanel implements ActionListener{
         c.gridy = 6;
         this.add(autoGenerate, c);
 
-        // Insert Logo Button
-        c.gridx = 0;
-        c.gridy = 7;
-        this.add(logoPrompt, c);
-
         // Fill the remainder so that it's not empty
         c.ipadx = 0;
         c.gridx = 0;
@@ -86,19 +77,7 @@ public class MazePropertiesPanel extends JPanel implements ActionListener{
         autoGenerate = new JButton("Autogenerate Maze");
         solutionPrompt = new JLabel("Show maze solution");
         solutionStatus = new JCheckBox();
-        logoPrompt = new JButton("Insert Logo");
-        logoPrompt.addActionListener(this);
 
         setupLayout();
-    }
-    @Override
-    public void actionPerformed(ActionEvent e){
-        if (e.getSource() == logoPrompt){
-            JFileChooser fileChooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "png", "gif", "bmp");
-            fileChooser.setFileFilter(filter);
-            fileChooser.showOpenDialog(null);
-
-        }
     }
 }
