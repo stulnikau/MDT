@@ -4,10 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MazeGrid extends JPanel {
-    int rows;
-    int cols;
+    public int rows;
+    public int cols;
     public MazeGrid(int rows, int cols) {
         super(new GridBagLayout());
+        this.rows = rows;
+        this.cols = cols;
 
         GridBagConstraints constraints = new GridBagConstraints();
 
