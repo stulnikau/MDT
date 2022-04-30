@@ -2,8 +2,14 @@ package com.mdt.gui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Editing canvas containing the maze
+ */
 public class MazeCanvasPanel extends JPanel {
 
+    /**
+     * Creates a new maze canvas panel
+     */
     public MazeCanvasPanel() {
         super(new BorderLayout());
         this.setBackground(Color.WHITE);

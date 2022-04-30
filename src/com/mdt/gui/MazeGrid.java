@@ -3,9 +3,21 @@ package com.mdt.gui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel to contain the maze grid. By default,
+ * creates a dotted panel with outside walls,
+ * an entrance in top left, and an exit in bottom
+ * right
+ */
 public class MazeGrid extends JPanel {
     public int rows;
     public int cols;
+
+    /**
+     * Creates a new maze grid with the specified dimensions
+     * @param rows number of rows in the maze
+     * @param cols number of columns in the maze
+     */
     public MazeGrid(int rows, int cols) {
         super(new GridBagLayout());
         this.rows = rows;
@@ -36,7 +48,6 @@ public class MazeGrid extends JPanel {
                     this.add(new MazeCellBorderPanel(setEnabled), constraints);
                 }
                 else { this.add(new MazeCellInsidePanel(), constraints); }
-
             }
         }
     }
