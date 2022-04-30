@@ -71,7 +71,7 @@ public class Maze {
      * @param logoLocation Location of the logo on the grid
      * @param logoDimensions Dimensions of the logo on the grid
      */
-    public void addLogo(ImageIcon logo, String[] logoLocation, String[] logoDimensions) {
+    public void addLogo(ImageIcon logo, int[] logoLocation, int[] logoDimensions) {
 
     }
 
@@ -83,7 +83,7 @@ public class Maze {
      * @param imageDimensions Start and end image dimensions on the maze grid
      */
     public void addStartAndEndImages(ImageIcon startImage, ImageIcon endImage,
-                                     String[] imageLocations, String[] imageDimensions) {
+                                     int[][] imageLocations, int[][] imageDimensions) {
 
     }
 
