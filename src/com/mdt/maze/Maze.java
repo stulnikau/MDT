@@ -11,7 +11,7 @@ import javax.swing.*;
 public class Maze {
 
     /**
-     * Creates a new maze. Saves the created and last
+     * Creates a new Maze instance. Saves the created and last
      * modified date of the maze
      * @param mazeName name of the maze
      * @param authorName name of the maze author
