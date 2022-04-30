@@ -5,6 +5,10 @@ import com.mdt.gui.generics.ProgressControlPanel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This panel allows the user to enter the Maze name and author name.
+ * Allow user to configure the maze dimensions
+ */
 public class AddMetadataPanel extends JPanel {
     public ProgressControlPanel progressControlPanel;
     private final JPanel metadataPanel;
@@ -19,6 +23,10 @@ public class AddMetadataPanel extends JPanel {
     private final JTextField widthInput;
     private final JTextField heightInput;
 
+    /**
+     * Handles the configuration of the panel layout using the
+     * GridBagLayout manager.
+     */
     private void setupLayout() {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -88,6 +96,9 @@ public class AddMetadataPanel extends JPanel {
         metadataPanel.add(Box.createGlue(), c);
     }
 
+    /**
+     * Creates a new AddMetadataPanel
+     */
     public AddMetadataPanel() {
         super(new BorderLayout());
 

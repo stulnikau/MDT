@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Dialog - exports selected mazes with or without the solution line
+ * in the directory specified by the user
+ */
 public class ExportDialog extends JDialog implements ActionListener {
     private final JPanel exportPropertiesPanel;
     private final ProgressControlPanel progressControlPanel;
@@ -17,6 +21,10 @@ public class ExportDialog extends JDialog implements ActionListener {
     private final JLabel solutionPrompt;
     private final JFileChooser fileChooser;
 
+    /**
+     * Handles the configuration of the panel layout using the
+     * GridBagLayout manager.
+     */
     private void setupLayout() {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -54,6 +62,10 @@ public class ExportDialog extends JDialog implements ActionListener {
         exportPropertiesPanel.add(Box.createGlue(), c);
     }
 
+    /**
+     *
+     * @param owner the parent container that the invokes the export dialog.
+     */
     public ExportDialog(Frame owner) {
         super(owner, "Export Items", true);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -86,10 +98,17 @@ public class ExportDialog extends JDialog implements ActionListener {
         this.pack();
     }
 
+    /**
+     * allow the user to select the directories
+     */
     public void showFileChooser() {
         fileChooser.showDialog(this, "Select");
     }
 
+    /**
+     * Processes an ActionEvent
+     * @param e ActionEvent originating from a component
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
