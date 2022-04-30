@@ -1,6 +1,6 @@
 package com.mdt.maze;
 
-import com.mdt.gui.MazeGrid;
+import com.mdt.gui.mazeitems.MazeGrid;
 
 import javax.swing.*;
 

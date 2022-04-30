@@ -1,4 +1,4 @@
-package com.mdt.gui;
+package com.mdt.gui.mazeitems;
 
 import com.mdt.gui.adapters.MouseAdapter;
 

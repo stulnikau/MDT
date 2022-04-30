@@ -1,4 +1,4 @@
-package com.mdt.gui;
+package com.mdt.gui.mazeitems;
 
 import javax.swing.*;
 import java.awt.*;

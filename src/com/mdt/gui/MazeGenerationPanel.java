@@ -1,6 +1,7 @@
 package com.mdt.gui;
 
 import com.mdt.gui.generics.ProgressControlPanel;
+import com.mdt.gui.mazeitems.MazeCanvasPanel;
 
 import javax.swing.*;
 import java.awt.*;

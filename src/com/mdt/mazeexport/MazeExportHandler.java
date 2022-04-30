@@ -1,6 +1,5 @@
 package com.mdt.mazeexport;
 
-import com.mdt.gui.MazeGrid;
 import com.mdt.maze.Maze;
 
 /**
