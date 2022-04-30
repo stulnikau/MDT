@@ -13,8 +13,8 @@ public class MazeCanvasPanel extends JPanel {
     public MazeCanvasPanel() {
         super(new BorderLayout());
         this.setBackground(Color.WHITE);
-        int rows = 15;
-        int cols = 16;
+        int rows = 8;
+        int cols = 9;
         MazeGrid mazeGrid = new MazeGrid(rows, cols);
 
         JScrollPane canvasScrollPane = new JScrollPane(mazeGrid);
