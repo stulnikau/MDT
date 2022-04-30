@@ -3,12 +3,21 @@ package com.mdt.maze;
 import com.mdt.gui.mazeitems.MazeGrid;
 
 import javax.swing.*;
+import java.util.Date;
 
 /**
  * Logical representation of a maze. Contains
  * maze metadata and layout.
  */
 public class Maze {
+    private MazeLayout mazeLayout;
+    private String mazeId;
+    private String mazeName;
+    private String mazeAuthor;
+    private Date createdDate;
+    private Date lastModifiedDate;
+    private int width;
+    private int height;
 
     /**
      * Creates a new Maze instance. Saves the created and last
@@ -24,8 +33,16 @@ public class Maze {
      * Sets a new last modified date of the maze based on
      * the current time
      */
-    private void setNewLastModifiedDate() {
+    private void refreshLastModifiedDate() {
 
+    }
+
+    /**
+     * Gets the name of the maze
+     * @return maze name
+     */
+    public String getMazeName() {
+        return null;
     }
 
     /**
@@ -34,6 +51,39 @@ public class Maze {
      * modified date
      */
     public String[] getMazeMetadata() {
+        return null;
+    }
+
+    /**
+     * Gets the dimensions of the maze in width, height format
+     * @return width, height of the maze (in cells)
+     */
+    public int[] getMazeDimensions() {
+        return null;
+    }
+
+    /**
+     * Gets the maze layout of the maze
+     * @return maze layout of the maze
+     */
+    public MazeLayout getMazeLayout() {
+        return null;
+    }
+
+    /**
+     * Automatically generates a new maze using the MazeLayoutGenerator
+     * class. Uses any logos and/or start/end images already
+     * placed on the canvas in the generation process
+     * @see com.mdt.mazegenerate.MazeLayoutGenerator
+     */
+    public void autogenerateMaze() {
+
+    }
+
+    /**
+     * Returns a maze grid that is a visual representation of the maze
+     */
+    public MazeGrid getVisual() {
         return null;
     }
 
@@ -93,7 +143,7 @@ public class Maze {
      * of a list of grid values. Returns null if
      * no solution exists
      */
-    public String[] getOptimalSolution() {
+    public int[][] getOptimalSolution() {
         return null;
     }
 

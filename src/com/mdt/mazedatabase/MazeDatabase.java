@@ -15,7 +15,7 @@ public class MazeDatabase {
      * Gets the database connection url, schema name, username,
      * and password from a db.props file stored on disk
      */
-    private void setupDatabaseCredentials() {
+    private void getDatabaseCredentialsFromFile() {
 
     }
 

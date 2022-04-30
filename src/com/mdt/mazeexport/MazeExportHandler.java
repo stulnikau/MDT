@@ -7,14 +7,18 @@ import com.mdt.maze.Maze;
  */
 public class MazeExportHandler {
 
-    private int mazeHeight;
-    private int mazeWidth;
+    private String exportDirectory;
+    private boolean includeSolution;
 
     /**
      * Creates a new MazeExportHandler to allow
      * exporting of mazes
+     * @param exportDirectory target directory for exported files
+     * @param includeSolution flag to include (true) or exclude (false)
+     *                         the optimal solution as a line on the maze
+     *                         grid
      */
-    public MazeExportHandler() {
+    public MazeExportHandler(String exportDirectory, boolean includeSolution) {
 
     }
 
@@ -22,11 +26,8 @@ public class MazeExportHandler {
      * Exports a maze as an image file, with an option to include
      * a line showing the optimal solution
      * @param maze maze to be exported
-     * @param solutionIncluded flag to include (true) or exclude (false)
-     *                         the optimal solution as a line on the maze
-     *                         grid
      */
-    public void exportMaze(Maze maze, boolean solutionIncluded) {
+    public void exportMaze(Maze maze) {
 
     }
 
@@ -36,8 +37,8 @@ public class MazeExportHandler {
      * based on the dimensions of the maze grid
      * @param maze maze to be exported
      */
-    private void determineExportImageDimensions(Maze maze) {
-
+    private int[] getExportImageDimensions(Maze maze) {
+        return null;
     }
 
 
