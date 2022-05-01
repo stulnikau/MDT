@@ -4,6 +4,7 @@ import com.mdt.gui.mazeitems.MazeGrid;
 
 import javax.swing.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Logical representation of a maze. Contains
@@ -11,13 +12,8 @@ import java.util.Date;
  */
 public class Maze {
     private MazeLayout mazeLayout;
-    private String mazeId;
-    private String mazeName;
-    private String mazeAuthor;
-    private Date createdDate;
-    private Date lastModifiedDate;
-    private int width;
-    private int height;
+    private MazeMetadata mazeMetadata;
+    private MazeDimensions mazeDimensions;
 
     /**
      * Creates a new Maze instance. Saves the created and last
@@ -30,27 +26,10 @@ public class Maze {
     }
 
     /**
-     * Sets a new last modified date of the maze based on
-     * the current time
-     */
-    private void refreshLastModifiedDate() {
-
-    }
-
-    /**
-     * Gets the name of the maze
-     * @return maze name
-     */
-    public String getMazeName() {
-        return null;
-    }
-
-    /**
      * Gets the metadata of the maze
-     * @return maze name, author name, created date and last
-     * modified date
+     * @return maze metadata
      */
-    public String[] getMazeMetadata() {
+    public MazeMetadata getMazeMetadata() {
         return null;
     }
 
@@ -58,7 +37,7 @@ public class Maze {
      * Gets the dimensions of the maze in width, height format
      * @return width, height of the maze (in cells)
      */
-    public int[] getMazeDimensions() {
+    public MazeDimensions getMazeDimensions() {
         return null;
     }
 
@@ -117,11 +96,9 @@ public class Maze {
 
     /**
      * Saves a logo present inside the maze
-     * @param logo Image of the logo
-     * @param logoLocation Location of the logo on the grid
-     * @param logoDimensions Dimensions of the logo on the grid
+     * @param mazeLogo logo to be added
      */
-    public void addLogo(ImageIcon logo, int[] logoLocation, int[] logoDimensions) {
+    public void addLogo(MazeLogo mazeLogo) {
 
     }
 
@@ -129,11 +106,8 @@ public class Maze {
      * Adds start and end images to be used instead of wall openings in the maze
      * @param startImage Image used for the start of the maze
      * @param endImage Image used for the end of the maze
-     * @param imageLocations Start and end image locations on the maze grid
-     * @param imageDimensions Start and end image dimensions on the maze grid
      */
-    public void addStartAndEndImages(ImageIcon startImage, ImageIcon endImage,
-                                     int[][] imageLocations, int[][] imageDimensions) {
+    public void addStartAndEndImages(MazeStartEndImage startImage, MazeStartEndImage endImage) {
 
     }
 
@@ -143,7 +117,7 @@ public class Maze {
      * of a list of grid values. Returns null if
      * no solution exists
      */
-    public int[][] getOptimalSolution() {
+    public List<MazeLocation> getOptimalSolution() {
         return null;
     }
 

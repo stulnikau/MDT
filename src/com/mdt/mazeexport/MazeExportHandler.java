@@ -1,6 +1,7 @@
 package com.mdt.mazeexport;
 
 import com.mdt.maze.Maze;
+import com.mdt.maze.MazeDimensions;
 
 /**
  * Handles exporting mazes as an image file
@@ -35,9 +36,9 @@ public class MazeExportHandler {
      * Determines the correct export image pixel size to
      * be used when exporting the maze. This is determined
      * based on the dimensions of the maze grid
-     * @param maze maze to be exported
+     * @param mazeDimensions maze to be exported
      */
-    private int[] getExportImageDimensions(Maze maze) {
+    private int[] getExportImageDimensions(MazeDimensions mazeDimensions) {
         return null;
     }
 

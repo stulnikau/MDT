@@ -20,7 +20,15 @@ public class MazeLayout {
      * Creates an empty maze layout with exits in provided locations
      * @param startEndLoc start and end locations in the maze
      */
-    public MazeLayout(int[][] startEndLoc) {
+    public MazeLayout(MazeLocation startEndLoc) {
 
+    }
+
+    /**
+     * Returns the dimensions of the maze layout
+     * @return dimensions of the maze layout
+     */
+    public MazeDimensions getMazeDimensions() {
+        return null;
     }
 }
