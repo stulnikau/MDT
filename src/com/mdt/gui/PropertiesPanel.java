@@ -4,13 +4,15 @@ import java.awt.*;
 
 /**
  * Panel displayed on east Maze Generation panel.
- * cardlayout is used to switch between MazePropertiesPanel and ImagePropertiesPanel.
+ * CardLayout is used to switch between MazePropertiesPanel and ImagePropertiesPanel.
  */
 public class PropertiesPanel extends JPanel {
     public final MazePropertiesPanel mazePropertiesPanel;
     public final ImagePropertiesPanel imagePropertiesPanel;
 
-
+    /**
+     * Creates a new properties panel
+     */
     public PropertiesPanel() {
         super(new BorderLayout());
         CardLayout cardLayout = new CardLayout();

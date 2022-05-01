@@ -92,16 +92,28 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         cardLayout.show(mainPanel, "AddMetadata");
     }
 
+    /**
+     * Actions taken when the user selects to come back
+     * to the landing page
+     */
     public void showLanding() {
         super.setTitle("Welcome to Maze Design Tool");
         cardLayout.show(mainPanel, "Landing");
     }
 
+    /**
+     * Actions taken when the user selects to proceed with
+     * creating a new maze from the add metadata panel
+     */
     public void showMazeGeneration() {
         super.setTitle("Maze Name");
         cardLayout.show(mainPanel,"MazeGeneration");
     }
 
+    /**
+     * Actions taken when the user chooses to export
+     * selected mazes from the maze table
+     */
     public void showExportDialog() {
         exportDialog.setLocationRelativeTo(this);
         exportDialog.setVisible(true);

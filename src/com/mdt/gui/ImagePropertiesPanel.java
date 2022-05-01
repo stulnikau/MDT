@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Side panel controlling the properties for Logo and Start-end image.
+ * Side panel controlling the properties for Logo and maze start/end images.
  */
 public class ImagePropertiesPanel extends JPanel {
     private final JLabel header;
@@ -13,7 +13,7 @@ public class ImagePropertiesPanel extends JPanel {
     private final JTextField widthInput;
 
     /**
-     * Adds the components and handles the configuration by using GridBagLayout
+     * Adds the components and handles the layout by using GridBagLayout
      */
     private void setupLayout() {
         GridBagConstraints c = new GridBagConstraints();

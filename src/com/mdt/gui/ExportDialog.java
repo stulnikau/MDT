@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Dialog - exports selected mazes with or without the solution line
+ * Exports selected mazes with or without the solution line
  * in the directory specified by the user
  */
 public class ExportDialog extends JDialog implements ActionListener {
@@ -63,7 +63,7 @@ public class ExportDialog extends JDialog implements ActionListener {
     }
 
     /**
-     *
+     * Creates a new export dialog as a child dialog of the specified panel
      * @param owner the parent container that the invokes the export dialog.
      */
     public ExportDialog(Frame owner) {
@@ -99,7 +99,7 @@ public class ExportDialog extends JDialog implements ActionListener {
     }
 
     /**
-     * allow the user to select the directories
+     * Allows the user to select the directories
      */
     public void showFileChooser() {
         fileChooser.showDialog(this, "Select");

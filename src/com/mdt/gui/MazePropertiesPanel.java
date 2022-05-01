@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Side panel controlling the properties for Maze
+ * Side panel controlling the properties for the maze
  */
 public class MazePropertiesPanel extends JPanel {
     private final JLabel header;
@@ -74,7 +74,7 @@ public class MazePropertiesPanel extends JPanel {
     }
 
     /**
-     *Creates a new  MazePropertiesPanel
+     * Creates a new MazePropertiesPanel
      */
     public MazePropertiesPanel() {
         super(new GridBagLayout());
