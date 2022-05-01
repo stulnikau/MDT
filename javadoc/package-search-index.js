@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.mdt"},{"l":"com.mdt.gui"},{"l":"com.mdt.gui.adapters"},{"l":"com.mdt.gui.generics"},{"l":"com.mdt.gui.mazeitems"},{"l":"com.mdt.maze"},{"l":"com.mdt.mazedatabase"},{"l":"com.mdt.mazeexport"},{"l":"com.mdt.mazegenerate"}];updateSearchResults();
