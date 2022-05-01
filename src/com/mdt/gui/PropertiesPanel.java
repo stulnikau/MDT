@@ -24,7 +24,7 @@ public class PropertiesPanel extends JPanel {
         propertiesPanelContainer.add(mazePropertiesPanel, "MazeProperties");
         propertiesPanelContainer.add(imagePropertiesPanel, "ImageProperties");
         this.add(propertiesPanelContainer, BorderLayout.CENTER);
-        cardLayout.show(propertiesPanelContainer, "MazeeProperties");
+        cardLayout.show(propertiesPanelContainer, "MazeProperties");
 
         // Add some padding on the sides
         this.add(Box.createHorizontalStrut(GUIFrame.PADDING_WIDTH), BorderLayout.EAST);
