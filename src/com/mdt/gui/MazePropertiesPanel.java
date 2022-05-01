@@ -3,6 +3,9 @@ package com.mdt.gui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Side panel controlling the properties for the maze
+ */
 public class MazePropertiesPanel extends JPanel {
     private final JLabel header;
     private final JLabel reachabilityLabel;
@@ -11,6 +14,9 @@ public class MazePropertiesPanel extends JPanel {
     private final JLabel solutionPrompt;
     private final JCheckBox solutionStatus;
 
+    /**
+     * Adds the components and handles the configuration by using GridBagLayout
+     */
     private void setupLayout() {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -67,6 +73,9 @@ public class MazePropertiesPanel extends JPanel {
         this.add(Box.createGlue(), c);
     }
 
+    /**
+     * Creates a new MazePropertiesPanel
+     */
     public MazePropertiesPanel() {
         super(new GridBagLayout());
         header = new JLabel("Maze Properties");

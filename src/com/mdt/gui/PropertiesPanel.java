@@ -2,14 +2,20 @@ package com.mdt.gui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel displayed on east Maze Generation panel.
+ * CardLayout is used to switch between MazePropertiesPanel and ImagePropertiesPanel.
+ */
 public class PropertiesPanel extends JPanel {
     public final MazePropertiesPanel mazePropertiesPanel;
     public final ImagePropertiesPanel imagePropertiesPanel;
-    private final CardLayout cardLayout;
 
+    /**
+     * Creates a new properties panel
+     */
     public PropertiesPanel() {
         super(new BorderLayout());
-        cardLayout = new CardLayout();
+        CardLayout cardLayout = new CardLayout();
         JPanel propertiesPanelContainer = new JPanel(cardLayout);
 
         mazePropertiesPanel = new MazePropertiesPanel();

@@ -2,6 +2,9 @@ package com.mdt.gui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Side panel controlling the properties for Logo and maze start/end images.
+ */
 public class ImagePropertiesPanel extends JPanel {
     private final JLabel header;
     private final JLabel heightPrompt;
@@ -9,6 +12,9 @@ public class ImagePropertiesPanel extends JPanel {
     private final JTextField heightInput;
     private final JTextField widthInput;
 
+    /**
+     * Adds the components and handles the layout by using GridBagLayout
+     */
     private void setupLayout() {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -53,6 +59,9 @@ public class ImagePropertiesPanel extends JPanel {
         this.add(Box.createGlue(), c);
     }
 
+    /**
+     * Creates a new ImagePropertiesPanel
+     */
     public ImagePropertiesPanel() {
         super(new GridBagLayout());
         header = new JLabel("Image Properties");
