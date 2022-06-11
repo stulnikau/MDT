@@ -4,8 +4,8 @@ package com.mdt.maze;
  * Container for holding information about the dimensions of a maze object
  */
 public class MazeDimensions {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     /**
      * Creates a new maze dimensions object from provided width and height
@@ -13,7 +13,11 @@ public class MazeDimensions {
      * @param h object height
      */
     public MazeDimensions(int w, int h) {
-
+        if (w < 1 || h < 1) {
+            throw new IllegalArgumentException("width and height must be positive");
+        }
+        this.width = w;
+        this.height = h;
     }
 
     /**
@@ -21,7 +25,7 @@ public class MazeDimensions {
      * @return object width in cells
      */
     public int getWidth() {
-        return 0;
+        return width;
     }
 
     /**
@@ -29,6 +33,6 @@ public class MazeDimensions {
      * @return object height in cells
      */
     public int getHeight() {
-        return 0;
+        return height;
     }
 }

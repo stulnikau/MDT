@@ -1,6 +1,7 @@
 package com.mdt.gui;
 
 import com.mdt.gui.generics.ProgressControlPanel;
+import com.mdt.maze.MazeDimensions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -131,5 +132,53 @@ public class AddMetadataPanel extends JPanel {
         // Add some padding on the sides
         this.add(Box.createHorizontalStrut(GUIFrame.PADDING_WIDTH), BorderLayout.EAST);
         this.add(Box.createHorizontalStrut(GUIFrame.PADDING_WIDTH), BorderLayout.WEST);
+    }
+
+    /**
+     * Gets the dimensions of the maze as specified by the user
+     * @return dimensions of the maze
+     */
+    public MazeDimensions getMazeDimensions() {
+        try {
+            int width = Integer.parseInt(widthInput.getText().strip());
+            int height = Integer.parseInt(heightInput.getText().strip());
+            return new MazeDimensions(width, height);
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Width and height must be a number. Please go back and try again."
+            );
+            return new MazeDimensions(1, 1);
+        } catch (IllegalArgumentException iae) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Width and height must be positive. Please go back and try again."
+            );
+            return new MazeDimensions(1, 1);
+        }
+    }
+
+    /**
+     * Gets the name of the maze
+     * @return maze name
+     */
+    public String getMazeName() {
+        return nameInput.getText().strip();
+    }
+
+    /**
+     * Gets the name of the author
+     * @return maze author
+     */
+    public String getMazeAuthor() {
+        return authorInput.getText().strip();
+    }
+
+    /**
+     * Gets the title of the maze
+     * @return maze title in the format "{maze name} by {maze author}"
+     */
+    public String getMazeTitle() {
+        return getMazeName() + " by " + getMazeAuthor();
     }
 }

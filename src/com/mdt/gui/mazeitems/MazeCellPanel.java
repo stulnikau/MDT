@@ -5,16 +5,15 @@ import com.mdt.gui.adapters.MouseAdapter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
- * Panel for the border between maze cells. Can be
+ * Panel for the maze cells. Can be
  * edited by the user by clicking on the panel.
- * Clicking adds or removes the wall between cells.
- * On hover, the border is highlighted to show that
+ * Clicking adds or removes the wall between neighbouring cells.
+ * On hover, the cell is highlighted to show that
  * it can be clicked
  */
-public class MazeCellBorderPanel extends JPanel {
+public class MazeCellPanel extends JPanel {
     private boolean wallStatus;
 
     /**
@@ -40,8 +39,8 @@ public class MazeCellBorderPanel extends JPanel {
 
     /**
      * Sets the appropriate colour for the panel based
-     * on whether the wall has or has not been set by
-     * the user
+     * on whether the cell has or has not been set as
+     * a wall by the user
      */
     private void setColorBasedOnWallStatus() {
         if (wallStatus) {
@@ -52,13 +51,13 @@ public class MazeCellBorderPanel extends JPanel {
     }
 
     /**
-     * Creates a new maze cell border panel
+     * Creates a new maze cell/border panel
      * @param enabled flag to set the wall enabled
      *                by default when creating the
      *                panel. Useful for corner panels
      *                and outside borders
      */
-    public MazeCellBorderPanel(boolean enabled) {
+    public MazeCellPanel(boolean enabled) {
         MazeCellBorderPanelMouseListener listener = new MazeCellBorderPanelMouseListener();
         addMouseListener(listener);
         wallStatus = enabled;

@@ -1,5 +1,7 @@
 package com.mdt.gui;
 
+import com.mdt.maze.MazeDimensions;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -50,11 +52,12 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         // Panel for adding metadata when creating a new maze
         addMetadataPanel = new AddMetadataPanel();
         mainPanel.add(addMetadataPanel, "AddMetadata");
-        // Panel for generating and customizing Maze
-        mazeGenerationPanel = new MazeGenerationPanel();
-        mainPanel.add(mazeGenerationPanel, "MazeGeneration");
         // Dialog for exporting mazes
         exportDialog = new ExportDialog(this);
+        // Panel for generating and customizing Maze with dummy values for dimensions
+        // Values are overridden once the user requests a new maze
+        mazeGenerationPanel = new MazeGenerationPanel();
+        mainPanel.add(mazeGenerationPanel, "MazeGeneration");
 
         // Add mainPanel to JFrame
         this.getContentPane().add(mainPanel, BorderLayout.CENTER);
@@ -106,7 +109,9 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
      * creating a new maze from the add metadata panel
      */
     public void showMazeGeneration() {
-        super.setTitle("Maze Name");
+        super.setTitle(addMetadataPanel.getMazeTitle());
+        // Update the maze generation panel with the correct values for the maze dimensions
+        mazeGenerationPanel.setMazeDimensions(addMetadataPanel.getMazeDimensions());
         cardLayout.show(mainPanel,"MazeGeneration");
     }
 
