@@ -20,11 +20,9 @@ public class MazeCellPanel extends JPanel {
     private boolean wallStatus;
     private final boolean enabledByDefault;
     private boolean isEntryExit;
-    private final JLabel entryExitLabel;
+    private final JLabel cellIconLabel;
     private ImageIcon arrowImageIcon;
     private ImageIcon wallImageIcon;
-    private ImageIcon highlightImageIcon;
-    private ImageIcon blankImageIcon;
 
     // Default side dimension for the cell
     private static final int DEFAULT_SIDE_DIM = 20;
@@ -41,7 +39,8 @@ public class MazeCellPanel extends JPanel {
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            entryExitLabel.setIcon(highlightImageIcon);
+            cellIconLabel.setVisible(false);
+            setBackground(Color.LIGHT_GRAY);
         }
 
         @Override
@@ -57,14 +56,20 @@ public class MazeCellPanel extends JPanel {
      */
     private void setColorBasedOnWallStatus() {
         if (wallStatus) {
-            entryExitLabel.setIcon(wallImageIcon);
-            if (enabledByDefault) {entryExitLabel.setIcon(wallImageIcon);}
+            cellIconLabel.setVisible(false);
+            this.setBackground(Color.BLACK);
+            if (enabledByDefault) {
+                cellIconLabel.setVisible(true);
+                this.setBackground(Color.BLACK);
+                cellIconLabel.setIcon(wallImageIcon);}
             this.isEntryExit = false;
         } else if (enabledByDefault) {
-            entryExitLabel.setIcon(arrowImageIcon);
+            cellIconLabel.setVisible(true);
+            cellIconLabel.setIcon(arrowImageIcon);
             this.isEntryExit = true;
         } else {
-            entryExitLabel.setIcon(blankImageIcon);
+            cellIconLabel.setVisible(false);
+            this.setBackground(Color.WHITE);
         }
     }
 
@@ -81,7 +86,7 @@ public class MazeCellPanel extends JPanel {
         addMouseListener(listener);
         wallStatus = enabled;
         enabledByDefault = enabled;
-        entryExitLabel = new JLabel();
+        cellIconLabel = new JLabel();
         if (enabledByDefault) {
             isEntryExit = false;
         }
@@ -93,17 +98,9 @@ public class MazeCellPanel extends JPanel {
             Image wallImage = ImageIO
                     .read(Objects.requireNonNull(getClass().getResource("wall.png")))
                     .getScaledInstance(DEFAULT_SIDE_DIM, DEFAULT_SIDE_DIM, Image.SCALE_DEFAULT);
-            Image highlightImage = ImageIO
-                    .read(Objects.requireNonNull(getClass().getResource("highlight.png")))
-                    .getScaledInstance(DEFAULT_SIDE_DIM, DEFAULT_SIDE_DIM, Image.SCALE_DEFAULT);
-            highlightImageIcon = new ImageIcon(highlightImage);
-            Image blankImage = ImageIO
-                    .read(Objects.requireNonNull(getClass().getResource("blank.png")))
-                    .getScaledInstance(DEFAULT_SIDE_DIM, DEFAULT_SIDE_DIM, Image.SCALE_DEFAULT);
-            blankImageIcon = new ImageIcon(blankImage);
             wallImageIcon = new ImageIcon(wallImage);
-            entryExitLabel.setIcon(wallImageIcon);
-            this.add(entryExitLabel);
+            cellIconLabel.setIcon(wallImageIcon);
+            this.add(cellIconLabel);
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
