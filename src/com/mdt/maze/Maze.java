@@ -1,9 +1,7 @@
 package com.mdt.maze;
 
-import com.mdt.gui.mazeitems.MazeGrid;
+import com.mdt.gui.mazeitems.MazeGridPanel;
 
-import javax.swing.*;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,7 +60,7 @@ public class Maze {
     /**
      * Returns a maze grid that is a visual representation of the maze
      */
-    public MazeGrid getVisual() {
+    public MazeGridPanel getVisual() {
         return null;
     }
 
@@ -88,9 +86,9 @@ public class Maze {
 
     /**
      * Binds the provided maze grid panel to the maze
-     * @param mazeGrid Visual representation of the maze
+     * @param mazeGridPanel Visual representation of the maze
      */
-    public void bindMazeGrid(MazeGrid mazeGrid) {
+    public void bindMazeGrid(MazeGridPanel mazeGridPanel) {
 
     }
 

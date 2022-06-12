@@ -1,5 +1,4 @@
 package com.mdt.gui.mazeitems;
-import com.mdt.gui.mazeitems.MazeGrid;
 import com.mdt.maze.MazeDimensions;
 
 import javax.swing.*;
@@ -16,10 +15,10 @@ public class MazeCanvasPanel extends JPanel {
     public MazeCanvasPanel(MazeDimensions mazeDimensions) {
         super(new BorderLayout());
         this.setBackground(Color.WHITE);
-        MazeGrid mazeGrid = new MazeGrid(mazeDimensions);
+        MazeGridPanel mazeGridPanel = new MazeGridPanel(mazeDimensions);
 
         JPanel canvasContainer = new JPanel(new FlowLayout());
-        canvasContainer.add(mazeGrid);
+        canvasContainer.add(mazeGridPanel);
         JScrollPane canvasScrollPane = new JScrollPane(canvasContainer);
         canvasScrollPane.setBorder(BorderFactory.createEmptyBorder());
         this.add(canvasScrollPane, BorderLayout.CENTER);

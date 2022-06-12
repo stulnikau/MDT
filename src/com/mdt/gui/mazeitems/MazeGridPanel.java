@@ -11,7 +11,7 @@ import java.awt.*;
  * an entrance in top left, and an exit in bottom
  * right
  */
-public class MazeGrid extends JPanel {
+public class MazeGridPanel extends JPanel {
     public int rows;
     public int cols;
 
@@ -19,7 +19,7 @@ public class MazeGrid extends JPanel {
      * Creates a new maze grid with the specified dimensions
      * @param mazeDimensions Width and height of the maze in cells
      */
-    public MazeGrid(MazeDimensions mazeDimensions) {
+    public MazeGridPanel(MazeDimensions mazeDimensions) {
         super(new GridLayout(0, mazeDimensions.getWidth()));
         this.rows = mazeDimensions.getHeight();
         this.cols = mazeDimensions.getWidth();

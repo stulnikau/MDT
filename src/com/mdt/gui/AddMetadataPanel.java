@@ -114,7 +114,7 @@ public class AddMetadataPanel extends JPanel {
         authorPrompt = new JLabel("Author Name:");
 
         nameInput = new JTextField("New Maze");
-        authorInput = new JTextField("");
+        authorInput = new JTextField("New Author");
 
         widthPrompt = new JLabel("Width:");
         heightPrompt = new JLabel("Height:");
