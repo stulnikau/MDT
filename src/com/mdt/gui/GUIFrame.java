@@ -112,6 +112,11 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         super.setTitle(addMetadataPanel.getMazeTitle());
         // Update the maze generation panel with the correct values for the maze dimensions
         mazeGenerationPanel.setMazeDimensions(addMetadataPanel.getMazeDimensions());
+        if (addMetadataPanel.mazeWithStartEndImages()) {
+            mazeGenerationPanel.setMazeStartEndImages(
+                    addMetadataPanel.getStartImage(),
+                    addMetadataPanel.getEndImage());
+        }
         cardLayout.show(mainPanel,"MazeGeneration");
     }
 
