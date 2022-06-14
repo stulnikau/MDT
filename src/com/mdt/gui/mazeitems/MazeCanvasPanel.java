@@ -1,5 +1,6 @@
 package com.mdt.gui.mazeitems;
 import com.mdt.maze.MazeDimensions;
+import com.mdt.maze.MazeLogo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +35,32 @@ public class MazeCanvasPanel extends JPanel {
         super(new BorderLayout());
         this.setBackground(Color.WHITE);
         mazeGridPanel = new MazeGridPanel(mazeDimensions, startImage, endImage);
+        setupLayout();
+    }
+
+    /**
+     * Creates a new maze canvas panel with start/end images and logo
+     * @param mazeDimensions maze dimensions
+     * @param startImage maze start image
+     * @param endImage maze end image
+     * @param logo maze logo
+     */
+    public MazeCanvasPanel(MazeDimensions mazeDimensions, File startImage, File endImage, MazeLogo logo) {
+        super(new BorderLayout());
+        this.setBackground(Color.WHITE);
+        mazeGridPanel = new MazeGridPanel(mazeDimensions, startImage, endImage, logo);
+        setupLayout();
+    }
+
+    /**
+     * Creates a new maze canvas panel with a logo
+     * @param mazeDimensions maze dimensions
+     * @param logo maze logo
+     */
+    public MazeCanvasPanel(MazeDimensions mazeDimensions, MazeLogo logo) {
+        super(new BorderLayout());
+        this.setBackground(Color.WHITE);
+        mazeGridPanel = new MazeGridPanel(mazeDimensions, logo);
         setupLayout();
     }
 

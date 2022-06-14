@@ -2,6 +2,8 @@ package com.mdt.gui;
 
 import com.mdt.gui.generics.ProgressControlPanel;
 import com.mdt.maze.MazeDimensions;
+import com.mdt.maze.MazeLocation;
+import com.mdt.maze.MazeLogo;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -26,6 +28,8 @@ public class AddMetadataPanel extends JPanel {
     private final JLabel heightPrompt;
     private final JTextField widthInput;
     private final JTextField heightInput;
+
+    // Start/end image selection
     private final JCheckBox useStartEndImagesPrompt;
     private final JButton startEndImageFilePickerButton;
     private final JLabel filesSelected;
@@ -33,6 +37,18 @@ public class AddMetadataPanel extends JPanel {
     private File startImage;
     private File endImage;
     private final JFileChooser fileChooser;
+
+    // Logo selection
+    private final JCheckBox useLogoPrompt;
+    private final JButton logoFilePickerButton;
+    private final JLabel logoSelected;
+    private boolean useLogo;
+    private File logo;
+    private final JFileChooser logoChooser;
+    private final JTextField logoColInput;
+    private final JTextField logoRowInput;
+    private final JTextField logoWidthInput;
+    private final JTextField logoHeightInput;
 
     /**
      * Handles the configuration of the panel layout using the
@@ -96,28 +112,99 @@ public class AddMetadataPanel extends JPanel {
         c.gridy = 6;
         metadataPanel.add(heightInput, c);
 
-        // Checkbox
+        // Horizontal separator
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0;
-        c.gridwidth = 3;
-        c.gridy = 7;
         c.gridx = 0;
+        c.gridy = 7;
+        c.gridwidth = 3;
+        metadataPanel.add(new JSeparator(JSeparator.HORIZONTAL), c);
+
+        // Checkbox
+        c.gridy = 8;
         metadataPanel.add(useStartEndImagesPrompt, c);
 
         // File picker button
         c.fill = GridBagConstraints.NONE;
         c.gridwidth = 1;
-        c.gridy = 8;
+        c.gridy = 9;
         metadataPanel.add(startEndImageFilePickerButton, c);
 
         // File picker results text box
         c.gridx = 1;
         metadataPanel.add(filesSelected, c);
 
+        // Horizontal separator
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 10;
+        c.gridwidth = 3;
+        metadataPanel.add(new JSeparator(JSeparator.HORIZONTAL), c);
+
+        // Checkbox
+        c.gridy = 11;
+        metadataPanel.add(useLogoPrompt, c);
+
+        // File picker button
+        c.fill = GridBagConstraints.NONE;
+        c.gridwidth = 1;
+        c.gridy = 12;
+        metadataPanel.add(logoFilePickerButton, c);
+
+        // File picker results text box
+        c.gridx = 1;
+        metadataPanel.add(logoSelected, c);
+
+        // Positioning header
+        JLabel logoOptionsHeader = new JLabel("Logo positioning and size");
+        c.ipady = 5;
+        c.gridwidth = 3;
+        c.gridy = 13;
+        c.gridx = 0;
+        metadataPanel.add(logoOptionsHeader, c);
+        c.ipady = 0;
+
+        // Column prompt
+        c.gridy = 14;
+        JLabel colLabel = new JLabel("Column:");
+        metadataPanel.add(colLabel, c);
+
+        // Row prompt
+        c.gridy = 15;
+        JLabel rowLabel = new JLabel("Row:");
+        metadataPanel.add(rowLabel, c);
+
+        // Width prompt
+        c.gridy = 16;
+        JLabel widthLabel = new JLabel("Width:");
+        metadataPanel.add(widthLabel, c);
+
+        // Height prompt
+        c.gridy = 17;
+        JLabel heightLabel = new JLabel("Height:");
+        metadataPanel.add(heightLabel, c);
+
+        // Column input
+        c.gridx = 1;
+        c.gridy = 14;
+        metadataPanel.add(logoColInput, c);
+
+        // Row input
+        c.gridy = 15;
+        metadataPanel.add(logoRowInput, c);
+
+        // Width input
+        c.gridy = 16;
+        metadataPanel.add(logoWidthInput, c);
+
+        // Height input
+        c.gridy = 17;
+        metadataPanel.add(logoHeightInput, c);
+
         // Fill the remainder so that it's not empty
         c.gridx = 0;
         c.weightx = 0;
-        c.gridy = 9;
+        c.gridy = 18;
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.LINE_END;
         c.weighty = 100.0;
@@ -140,6 +227,21 @@ public class AddMetadataPanel extends JPanel {
                         "2 files must be selected. Please go back and try again."
                 );
             }
+        }
+    }
+
+    private void pickLogo() {
+        int selectedOption = logoChooser.showOpenDialog(this);
+        if (selectedOption == JFileChooser.APPROVE_OPTION) {
+            logo = logoChooser.getSelectedFile();
+            useLogo = true;
+            logoSelected.setText("File selected");
+
+            // Enable logo controls
+            logoColInput.setEnabled(true);
+            logoRowInput.setEnabled(true);
+            logoWidthInput.setEnabled(true);
+            logoHeightInput.setEnabled(true);
         }
     }
 
@@ -171,6 +273,7 @@ public class AddMetadataPanel extends JPanel {
         mazeOptionsHeader = new JLabel("Maze options");
         mazeOptionsHeader.setFont(GUIFrame.HEADING_3);
 
+        // Start/end image picker
         startEndImageFilePickerButton = new JButton("Select files...");
         startEndImageFilePickerButton.setEnabled(false);
         startEndImageFilePickerButton.addActionListener(e -> pickStartEndImages());
@@ -186,16 +289,40 @@ public class AddMetadataPanel extends JPanel {
         fileChooser.setFileFilter(filter);
 
         useStartEndImagesPrompt = new JCheckBox("Use images for maze start and end");
-        useStartEndImagesPrompt.addItemListener(e -> {
-            boolean btnStatus = (e.getStateChange() == ItemEvent.SELECTED);
-            startEndImageFilePickerButton.setEnabled(btnStatus);
-        });
+        useStartEndImagesPrompt.addItemListener(e -> startEndImageFilePickerButton.setEnabled(e.getStateChange() == ItemEvent.SELECTED));
+
+        // Logo picker
+        logoFilePickerButton = new JButton("Select file...");
+        logoFilePickerButton.setEnabled(false);
+        logoFilePickerButton.addActionListener(e -> pickLogo());
+
+        logoSelected = new JLabel();
+        logoSelected.setText("No file selected");
+        logoSelected.setForeground(Color.GRAY);
+
+        logoChooser = new JFileChooser();
+        logoChooser.setAcceptAllFileFilterUsed(false);
+        logoChooser.setMultiSelectionEnabled(false);
+        logoChooser.setFileFilter(filter);
+
+        useLogoPrompt = new JCheckBox("Place a logo on maze canvas");
+        useLogoPrompt.addItemListener(e -> logoFilePickerButton.setEnabled(e.getStateChange() == ItemEvent.SELECTED));
+
+        logoColInput = new JTextField("5");
+        logoColInput.setEnabled(false);
+        logoRowInput = new JTextField("4");
+        logoRowInput.setEnabled(false);
+        logoWidthInput = new JTextField("2");
+        logoWidthInput.setEnabled(false);
+        logoHeightInput = new JTextField("2");
+        logoHeightInput.setEnabled(false);
 
         setupLayout();
         this.add(progressControlPanel, BorderLayout.SOUTH);
         this.add(metadataPanel, BorderLayout.CENTER);
 
-        useStartEndImages = false; // Default value
+        useStartEndImages = false; // Default values
+        useLogo = false;
 
         // Add some padding on the sides
         this.add(Box.createHorizontalStrut(GUIFrame.PADDING_WIDTH), BorderLayout.EAST);
@@ -274,5 +401,28 @@ public class AddMetadataPanel extends JPanel {
      */
     public File getEndImage() {
         return endImage;
+    }
+
+    /**
+     * Tests whether the maze should include a logo
+     * @return boolean indicating whether the user selected a maze
+     * with a logo included
+     */
+    public boolean mazeWithLogo() {
+        return useLogo;
+    }
+
+    /**
+     * Retrieves the maze logo and the positioning of the logo
+     * @return Maze logo and positioning on the maze canvas
+     */
+    public MazeLogo getMazeLogo() {
+        MazeLocation logoLocation = new MazeLocation(
+                Integer.parseInt(logoRowInput.getText().strip()) - 1,
+                Integer.parseInt(logoColInput.getText().strip()) - 1);
+        MazeDimensions logoDimensions = new MazeDimensions(
+                Integer.parseInt(logoWidthInput.getText().strip()),
+                Integer.parseInt(logoHeightInput.getText().strip()));
+        return new MazeLogo(logo, logoDimensions, logoLocation);
     }
 }

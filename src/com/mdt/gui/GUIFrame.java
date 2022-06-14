@@ -117,6 +117,11 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
                     addMetadataPanel.getStartImage(),
                     addMetadataPanel.getEndImage());
         }
+        if (addMetadataPanel.mazeWithLogo()) {
+            mazeGenerationPanel.setMazeLogo(
+                    addMetadataPanel.getMazeLogo()
+            );
+        }
         cardLayout.show(mainPanel,"MazeGeneration");
     }
 

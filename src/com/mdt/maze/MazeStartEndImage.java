@@ -1,6 +1,7 @@
 package com.mdt.maze;
 
 import javax.swing.*;
+import java.io.File;
 
 /**
  * Specifies the properties of start/end images on the maze canvas
@@ -11,17 +12,8 @@ public class MazeStartEndImage extends MazeEntryExitPoint implements MazeImage {
      * @return ImageIcon corresponding to the MazeStartEndImage instance
      */
     @Override
-    public ImageIcon getImage() {
+    public File getImage() {
         return null;
-    }
-
-    /**
-     * Sets the ImageIcon corresponding to the MazeStartEndImage instance
-     * @param image ImageIcon to be bound to the MazeStartEndImage instance
-     */
-    @Override
-    public void setImage(ImageIcon image) {
-
     }
 
     /**
