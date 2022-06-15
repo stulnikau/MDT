@@ -1,9 +1,11 @@
 package com.mdt.maze;
 
+import java.io.Serializable;
+
 /**
  * Container for holding information about the dimensions of a maze object
  */
-public class MazeDimensions {
+public class MazeDimensions implements Serializable {
     private final int width;
     private final int height;
 

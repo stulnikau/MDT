@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Objects;
  * On hover, the cell is highlighted to show that
  * it can be clicked
  */
-public class MazeCellPanel extends JPanel {
+public class MazeCellPanel extends JPanel implements Serializable {
     private boolean wallStatus;
     private final boolean enabledByDefault;
 

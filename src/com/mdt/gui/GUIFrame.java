@@ -49,6 +49,8 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
+        this.mazeDatabase = new MazeDatabase();
+
         // Main JPanel setup
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
@@ -77,8 +79,6 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         addMetadataPanel.progressControlPanel.nextButton.addActionListener(this);
         mazeGenerationPanel.progressControlPanel.prevButton.addActionListener(this);
         mazeGenerationPanel.progressControlPanel.nextButton.addActionListener(this);
-
-        this.mazeDatabase = new MazeDatabase();
 
         this.addWindowListener(new ClosingListener());
 
@@ -178,9 +178,9 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         } else if (addMetadataPanel.progressControlPanel.prevButton.equals(src)) {
             showLanding();
         } else if (mazeGenerationPanel.progressControlPanel.nextButton.equals(src)) {
+            saveRecentMaze();
             showLanding();
         } else if (mazeGenerationPanel.progressControlPanel.prevButton.equals(src)) {
-            saveRecentMaze();
             showNewMazeDialog();
         }
     }

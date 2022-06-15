@@ -1,11 +1,12 @@
 package com.mdt.maze;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * Specifies properties of MazeLogos on the maze grid
  */
-public class MazeLogo implements MazeItem, MazeImage {
+public class MazeLogo implements MazeItem, MazeImage, Serializable {
     private final File logo;
     private final MazeDimensions dimensions;
     private final MazeLocation location;

@@ -2,8 +2,9 @@ package com.mdt.gui.mazeitems;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
-public class MazeImageCellPanel extends JPanel {
+public class MazeImageCellPanel extends JPanel implements Serializable {
     private final boolean isEntryExit;
 
     /**

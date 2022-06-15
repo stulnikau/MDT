@@ -1,9 +1,11 @@
 package com.mdt.maze;
 
+import java.io.Serializable;
+
 /**
  * Describes any location on the maze
  */
-public class MazeLocation {
+public class MazeLocation implements Serializable {
     private final int row;
     private final int col;
 
