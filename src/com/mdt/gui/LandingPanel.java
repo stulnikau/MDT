@@ -1,5 +1,7 @@
 package com.mdt.gui;
 
+import com.mdt.mazedatabase.MazeDatabase;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,11 +24,11 @@ public class LandingPanel extends JPanel {
     /**
      * Creates a new LandingPanel to be viewed in the GUI
      */
-    public LandingPanel() {
+    public LandingPanel(MazeDatabase mazeDatabase) {
         super(new BorderLayout());
 
         landingControlPanel = new LandingControlPanel();
-        mazeBrowserTable = new MazeBrowserTable();
+        mazeBrowserTable = new MazeBrowserTable(mazeDatabase);
         JScrollPane mazeBrowserScrollPane = new JScrollPane(mazeBrowserTable);
         mazeBrowserScrollPane.setBorder(BorderFactory.createEmptyBorder());
         this.add(landingControlPanel, BorderLayout.NORTH);

@@ -18,8 +18,10 @@ public class MazeGenerationPanel extends JPanel {
     public ProgressControlPanel progressControlPanel;
     private MazeDimensions mazeDimensions;
     private boolean useStartEndImages;
+    private boolean useLogo;
     private File startImage;
     private File endImage;
+    private MazeLogo logo;
 
     /**
      * Creates a new panel for generating a maze
@@ -28,7 +30,7 @@ public class MazeGenerationPanel extends JPanel {
         super(new BorderLayout());
         propertiesPanel = new PropertiesPanel();
         // Creates a maze canvas with a default value that will be overridden
-        // by a method invoked when the user selects the maze dimensions
+        // by a method invoked when the user selects the maze options
         mazeDimensions = new MazeDimensions(25, 25);
         mazeCanvasPanel = new MazeCanvasPanel(mazeDimensions);
         progressControlPanel = new ProgressControlPanel("Save and Exit", "Cancel");
@@ -45,9 +47,6 @@ public class MazeGenerationPanel extends JPanel {
      */
     public void setMazeDimensions(MazeDimensions mazeDimensions) {
         this.mazeDimensions = mazeDimensions;
-        this.remove(mazeCanvasPanel);
-        mazeCanvasPanel = new MazeCanvasPanel(this.mazeDimensions);
-        this.add(mazeCanvasPanel, BorderLayout.CENTER);
     }
 
     /**
@@ -56,12 +55,9 @@ public class MazeGenerationPanel extends JPanel {
      * @param endImage file for the maze end image
      */
     public void setMazeStartEndImages(File startImage, File endImage) {
-        this.remove(mazeCanvasPanel);
         this.startImage = startImage;
         this.endImage = endImage;
         useStartEndImages = true;
-        mazeCanvasPanel = new MazeCanvasPanel(mazeDimensions, startImage, endImage);
-        this.add(mazeCanvasPanel, BorderLayout.CENTER);
     }
 
     /**
@@ -69,13 +65,27 @@ public class MazeGenerationPanel extends JPanel {
      * @param logo maze logo
      */
     public void setMazeLogo(MazeLogo logo) {
+        useLogo = true;
+        this.logo = logo;
+    }
+
+    /**
+     * Repaints the maze canvas with all the settings applied
+     */
+    public void initialiseWithParams() {
         this.remove(mazeCanvasPanel);
-        if (useStartEndImages) {
+        if (useStartEndImages && useLogo) {
             mazeCanvasPanel = new MazeCanvasPanel(mazeDimensions, startImage, endImage, logo);
-        } else {
+        } else if (useStartEndImages) {
+            mazeCanvasPanel = new MazeCanvasPanel(mazeDimensions, startImage, endImage);
+        } else if (useLogo) {
             mazeCanvasPanel = new MazeCanvasPanel(mazeDimensions, logo);
+        } else {
+            mazeCanvasPanel = new MazeCanvasPanel(mazeDimensions);
         }
         this.add(mazeCanvasPanel, BorderLayout.CENTER);
+        useStartEndImages = false;
+        useLogo = false;
     }
 }
 

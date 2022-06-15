@@ -1,62 +1,105 @@
 package com.mdt.maze;
 
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * Container for maze metadata
  */
-public class MazeMetadata {
-    private String mazeName;
-    private String mazeAuthor;
-    private Date mazeCreatedDate;
-    private Date mazeLastModifiedDate;
+public class MazeMetadata implements Comparable {
+    private final String mazeName;
+    private final String mazeAuthor;
+    private final String mazeCreatedDate;
+    private final String mazeLastModifiedDate;
 
     /**
-     * Gets the name of the maze
+     * Create a new maze metadata container with created date and last modified date at the current moment
+     * @param mazeName maze name
+     * @param mazeAuthor maze author
+     */
+    public MazeMetadata(String mazeName, String mazeAuthor) {
+        this.mazeName = mazeName;
+        this.mazeAuthor = mazeAuthor;
+        this.mazeCreatedDate = new Date().toString();
+        this.mazeLastModifiedDate = mazeCreatedDate;
+    }
+
+    /**
+     * Create a new maze metadata container from provided variables
+     * @param mazeName maze name
+     * @param mazeAuthor maze author
+     * @param mazeCreatedDate maze created date
+     * @param mazeLastModifiedDate maze last modified date
+     */
+    public MazeMetadata(String mazeName, String mazeAuthor, String mazeCreatedDate, String mazeLastModifiedDate) {
+        this.mazeName = mazeName;
+        this.mazeAuthor = mazeAuthor;
+        this.mazeCreatedDate = mazeCreatedDate;
+        this.mazeLastModifiedDate = mazeLastModifiedDate;
+    }
+
+    /**
+     * Returns a vector that holds maze metadata
+     * @return vector with maze metadata
+     */
+    public Vector<String> getRowData() {
+        Vector<String> rowData = new Vector<>(4);
+        rowData.add(getMazeName());
+        rowData.add(getMazeAuthor());
+        rowData.add(getMazeCreatedDate());
+        rowData.add(getMazeLastModifiedDate());
+        return rowData;
+    }
+
+    /**
      * @return maze name
      */
     public String getMazeName() {
-        return null;
+        return mazeName;
     }
 
     /**
-     * Sets the maze name
-     * @param mazeName maze name
+     * @return maze author
      */
-    public void setMazeName(String mazeName) {
-
+    public String getMazeAuthor() {
+        return mazeAuthor;
     }
 
     /**
-     * Sets the maze author name
-     * @param author author name
+     * @return maze created date
      */
-    public void setMazeAuthor(String author) {
-
+    public String getMazeCreatedDate() {
+        return mazeCreatedDate;
     }
 
     /**
-     * Sets the maze created date
-     * @param createdDate maze created date
+     * @return maze last modified date
      */
-    public void setMazeCreatedDate(Date createdDate) {
-
+    public String getMazeLastModifiedDate() {
+        return mazeLastModifiedDate;
     }
 
     /**
-     * Sets the maze last modified date
-     * @param lastModifiedDate maze last modified date
+     * Convert metadata to a string for comparisons
+     * @return string concatenation of maze metadata fields
      */
-    public void setMazeLastModifiedDate(Date lastModifiedDate) {
-
+    @Override
+    public String toString() {
+        return "MazeMetadata{" +
+                "mazeName='" + mazeName + '\'' +
+                ", mazeAuthor='" + mazeAuthor + '\'' +
+                ", mazeCreatedDate=" + mazeCreatedDate +
+                ", mazeLastModifiedDate=" + mazeLastModifiedDate +
+                '}';
     }
 
     /**
-     * Gets the metadata of the maze
-     * @return maze name, author name, created date and last
-     * modified date
+     * Implement maze metadata comparisons for sorting
+     * @param o another maze metadata object
+     * @return relative ranking against the compared to object o
      */
-    public String[] getMazeMetadata() {
-        return null;
+    @Override
+    public int compareTo(Object o) {
+        return this.toString().compareTo(o.toString());
     }
 }

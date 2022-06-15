@@ -289,7 +289,13 @@ public class AddMetadataPanel extends JPanel {
         fileChooser.setFileFilter(filter);
 
         useStartEndImagesPrompt = new JCheckBox("Use images for maze start and end");
-        useStartEndImagesPrompt.addItemListener(e -> startEndImageFilePickerButton.setEnabled(e.getStateChange() == ItemEvent.SELECTED));
+        useStartEndImagesPrompt.addItemListener(e -> {
+            startEndImageFilePickerButton.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+            if (e.getStateChange() == ItemEvent.DESELECTED) {
+                useStartEndImages = false;
+                filesSelected.setText("No files selected");
+            }
+        });
 
         // Logo picker
         logoFilePickerButton = new JButton("Select file...");
@@ -306,7 +312,13 @@ public class AddMetadataPanel extends JPanel {
         logoChooser.setFileFilter(filter);
 
         useLogoPrompt = new JCheckBox("Place a logo on maze canvas");
-        useLogoPrompt.addItemListener(e -> logoFilePickerButton.setEnabled(e.getStateChange() == ItemEvent.SELECTED));
+        useLogoPrompt.addItemListener(e -> {
+            logoFilePickerButton.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+            if (e.getStateChange() == ItemEvent.DESELECTED) {
+                useLogo = false;
+                logoSelected.setText("No file selected");
+            }
+        });
 
         logoColInput = new JTextField("5");
         logoColInput.setEnabled(false);

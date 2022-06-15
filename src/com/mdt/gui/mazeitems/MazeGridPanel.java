@@ -10,8 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Objects;
 
 /**
@@ -20,7 +19,7 @@ import java.util.Objects;
  * an entrance in top left, and an exit in bottom
  * right
  */
-public class MazeGridPanel extends JPanel {
+public class MazeGridPanel extends JPanel implements Serializable {
     public int rows;
     public int cols;
     private ImageIcon entryIcon;

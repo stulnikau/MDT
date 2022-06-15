@@ -74,4 +74,12 @@ public class MazeCanvasPanel extends JPanel {
         canvasScrollPane.setBorder(BorderFactory.createEmptyBorder());
         this.add(canvasScrollPane, BorderLayout.CENTER);
     }
+
+    /**
+     * Retrieves the maze grid of the maze
+     * @return maze grid panel
+     */
+    public MazeGridPanel getMazeGrid() {
+        return mazeGridPanel;
+    }
 }
