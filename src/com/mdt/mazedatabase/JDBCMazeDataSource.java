@@ -126,8 +126,7 @@ public class JDBCMazeDataSource implements MazeDataSource {
 
             rs = getMazeGrid.executeQuery();
             rs.next();
-            Blob blob = rs.getBlob("mazeGridPanel");
-            byte[] data = blob.getBytes(1, (int) blob.length());
+            byte[] data = rs.getBytes("mazeGridPanel");
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(data);
             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
             mazeGridPanel = (MazeGridPanel) objectInputStream.readObject();

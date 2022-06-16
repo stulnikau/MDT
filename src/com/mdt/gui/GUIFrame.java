@@ -150,15 +150,15 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
      */
     private void showExportDialog() {
         int[] rowsToExport = landingPanel.mazeBrowserTable.getSelectedRows();
-        Vector<MazeGridPanel> mazeGridPanels = new Vector<>();
+        Vector<Maze> mazes = new Vector<>();
         for (int row : rowsToExport) {
             int modelIndex = landingPanel.mazeBrowserTable.convertRowIndexToModel(row);
             DefaultTableModel tableModel = (DefaultTableModel) landingPanel.mazeBrowserTable.getModel();
             MazeMetadata mazeToGet = new MazeMetadata(tableModel.getDataVector().elementAt(modelIndex));
-            mazeGridPanels.add(mazeDatabase.getMaze(mazeToGet).getMazeGrid());
+            mazes.add(mazeDatabase.getMaze(mazeToGet));
         }
 
-        exportDialog.bindMazeGrids(mazeGridPanels);
+        exportDialog.bindMazeGrids(mazes);
         exportDialog.setLocationRelativeTo(this);
         exportDialog.setVisible(true);
     }

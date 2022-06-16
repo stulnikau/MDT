@@ -12,7 +12,7 @@ import java.io.File;
 
 public class TestMazeExportHandler {
     @Test
-    private void TestMazeExport() {
+    public void TestMazeExport() {
         MazeExportHandler exportHandler = new MazeExportHandler("./", false);
         MazeMetadata mazeMetadata = new MazeMetadata("foo", "bar");
         exportHandler.exportMaze(new Maze(
@@ -21,11 +21,11 @@ public class TestMazeExportHandler {
                         new MazeDimensions(10, 10)
                 )
         ));
-        assertTrue(new File("./" + mazeMetadata.getFileName()).exists());
+        assertTrue(new File("./" + mazeMetadata.getFileName() + ".png").exists());
     }
 
     @Test
-    private void TestMazeExportMazeTooLarge() {
+    public void TestMazeExportMazeTooLarge() {
         MazeExportHandler exportHandler = new MazeExportHandler("./", false);
         MazeMetadata mazeMetadata = new MazeMetadata("foo", "bar");
         assertThrows(IllegalArgumentException.class, () -> exportHandler.exportMaze(

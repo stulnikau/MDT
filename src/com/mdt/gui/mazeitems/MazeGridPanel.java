@@ -242,7 +242,7 @@ public class MazeGridPanel extends JPanel implements Serializable {
     /**
      * Show optimal maze solution on the grid
      */
-    public void showSolution() {
+    public void showSolution(boolean show) {
 
     }
 }

@@ -2,6 +2,8 @@ package com.mdt.gui;
 
 import com.mdt.gui.generics.ProgressControlPanel;
 import com.mdt.gui.mazeitems.MazeGridPanel;
+import com.mdt.maze.Maze;
+import com.mdt.mazeexport.MazeExportHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +25,7 @@ public class ExportDialog extends JDialog implements ActionListener {
     private final JCheckBox includeSolutionStatus;
     private final JLabel solutionPrompt;
     private final JFileChooser fileChooser;
-    private Vector<MazeGridPanel> mazeGridPanels;
+    private Vector<Maze> mazes;
 
     /**
      * Handles the configuration of the panel layout using the
@@ -110,11 +112,11 @@ public class ExportDialog extends JDialog implements ActionListener {
     }
 
     /**
-     * Selects which maze grids will be exported
-     * @param mazeGridPanels maze grids to be exported
+     * Selects which mazes will be exported
+     * @param mazes mazes to be exported
      */
-    public void bindMazeGrids(Vector<MazeGridPanel> mazeGridPanels) {
-        this.mazeGridPanels = mazeGridPanels;
+    public void bindMazeGrids(Vector<Maze> mazes) {
+        this.mazes = mazes;
     }
 
     /**
@@ -128,8 +130,10 @@ public class ExportDialog extends JDialog implements ActionListener {
         if (fileChooserBtn.equals(src)) {
             showFileChooser();
         } else if (progressControlPanel.nextButton.equals(src)) {
-            // Invoke actions to export
-            // For now, just shut the dialog
+            MazeExportHandler exportHandler = new MazeExportHandler("./", false);
+            for (Maze maze : mazes) {
+                exportHandler.exportMaze(maze);
+            }
             this.dispose();
         } else if (progressControlPanel.prevButton.equals(src)) {
             this.dispose();
