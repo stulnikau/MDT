@@ -11,8 +11,8 @@ import java.awt.*;
  */
 public class MazeExportHandler {
 
-    private String exportDirectory;
-    private boolean includeSolution;
+    private final String exportDirectory;
+    private final boolean includeSolution;
 
     /**
      * Creates a new MazeExportHandler to allow
@@ -23,7 +23,8 @@ public class MazeExportHandler {
      *                         grid
      */
     public MazeExportHandler(String exportDirectory, boolean includeSolution) {
-
+        this.exportDirectory = exportDirectory;
+        this.includeSolution = false;
     }
 
     /**
