@@ -39,6 +39,17 @@ public class MazeMetadata implements Comparable {
     }
 
     /**
+     * Create a new maze metadata container from provided data vector
+     * @param rowData vector containing maze metadata
+     */
+    public MazeMetadata(Vector<?> rowData) throws ArrayIndexOutOfBoundsException {
+        this.mazeName = (String) rowData.get(0);
+        this.mazeAuthor = (String) rowData.get(1);
+        this.mazeCreatedDate = (String) rowData.get(2);
+        this.mazeLastModifiedDate = (String) rowData.get(3);
+    }
+
+    /**
      * Returns a vector that holds maze metadata
      * @return vector with maze metadata
      */
@@ -77,6 +88,15 @@ public class MazeMetadata implements Comparable {
      */
     public String getMazeLastModifiedDate() {
         return mazeLastModifiedDate;
+    }
+
+    /**
+     * @return maze metadata formatted for a file name
+     */
+    public String getFileName() {
+        return (getMazeName() + "_" + getMazeAuthor() + "_" + getMazeLastModifiedDate())
+                .replace(":", ".")
+                .replace(" ", "_");
     }
 
     /**

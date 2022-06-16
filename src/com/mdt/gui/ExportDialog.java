@@ -1,11 +1,14 @@
 package com.mdt.gui;
 
 import com.mdt.gui.generics.ProgressControlPanel;
+import com.mdt.gui.mazeitems.MazeGridPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Exports selected mazes with or without the solution line
@@ -20,6 +23,7 @@ public class ExportDialog extends JDialog implements ActionListener {
     private final JCheckBox includeSolutionStatus;
     private final JLabel solutionPrompt;
     private final JFileChooser fileChooser;
+    private Vector<MazeGridPanel> mazeGridPanels;
 
     /**
      * Handles the configuration of the panel layout using the
@@ -103,6 +107,14 @@ public class ExportDialog extends JDialog implements ActionListener {
      */
     public void showFileChooser() {
         fileChooser.showDialog(this, "Select");
+    }
+
+    /**
+     * Selects which maze grids will be exported
+     * @param mazeGridPanels maze grids to be exported
+     */
+    public void bindMazeGrids(Vector<MazeGridPanel> mazeGridPanels) {
+        this.mazeGridPanels = mazeGridPanels;
     }
 
     /**

@@ -1,7 +1,10 @@
 package com.mdt.mazeexport;
 
+import com.mdt.gui.mazeitems.MazeGridPanel;
 import com.mdt.maze.Maze;
 import com.mdt.maze.MazeDimensions;
+
+import java.awt.*;
 
 /**
  * Handles exporting mazes as an image file
@@ -38,9 +41,7 @@ public class MazeExportHandler {
      * based on the dimensions of the maze grid
      * @param mazeDimensions maze to be exported
      */
-    private int[] getExportImageDimensions(MazeDimensions mazeDimensions) {
+    private Dimension getExportImageDimensions(MazeDimensions mazeDimensions) {
         return null;
     }
-
-
 }

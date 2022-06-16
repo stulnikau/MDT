@@ -238,4 +238,11 @@ public class MazeGridPanel extends JPanel implements Serializable {
     public MazeDimensions getMazeDimensions() {
         return mazeDimensions;
     }
+
+    /**
+     * Show optimal maze solution on the grid
+     */
+    public void showSolution() {
+
+    }
 }

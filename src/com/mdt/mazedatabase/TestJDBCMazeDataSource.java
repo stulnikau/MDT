@@ -6,7 +6,6 @@ import com.mdt.gui.mazeitems.MazeGridPanel;
 import com.mdt.maze.*;
 import org.junit.jupiter.api.*;
 
-import javax.swing.*;
 import java.io.File;
 
 public class TestJDBCMazeDataSource {
