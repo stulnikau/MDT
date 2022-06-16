@@ -15,7 +15,7 @@ import java.util.TreeSet;
  * Based on the structure of CAB302, Practical 06
  * Ref: https://github.com/qut-cab302/prac06/blob/master/solution/dataExercise/JDBCAddressBookDataSource.java
  */
-public class JDBCMazeDataSource {
+public class JDBCMazeDataSource implements MazeDataSource {
 
     public static final String CREATE_TABLE =
             "CREATE TABLE IF NOT EXISTS maze ("
@@ -35,8 +35,11 @@ public class JDBCMazeDataSource {
     private PreparedStatement getMazes;
     private PreparedStatement getMazeGrid;
 
-    public JDBCMazeDataSource() {
-        connection = DBConnection.getInstance();
+    /**
+     * New JDBC maze data source
+     */
+    public JDBCMazeDataSource(Connection connection) {
+        this.connection = connection;
         try {
             Statement st = connection.createStatement();
             st.execute(CREATE_TABLE);

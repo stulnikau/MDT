@@ -4,6 +4,8 @@ import com.mdt.Program;
 import com.mdt.gui.mazeitems.MazeGridPanel;
 import com.mdt.maze.Maze;
 import com.mdt.maze.MazeMetadata;
+import com.mdt.mazedatabase.DBConnection;
+import com.mdt.mazedatabase.JDBCMazeDataSource;
 import com.mdt.mazedatabase.MazeDatabase;
 
 import javax.swing.*;
@@ -49,7 +51,7 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
-        this.mazeDatabase = new MazeDatabase();
+        this.mazeDatabase = new MazeDatabase(new JDBCMazeDataSource(DBConnection.getInstance()));
 
         // Main JPanel setup
         cardLayout = new CardLayout();
