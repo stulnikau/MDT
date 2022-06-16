@@ -66,8 +66,13 @@ public class JDBCMazeDataSource implements MazeDataSource {
     /**
      * Adds a new maze
      * @param maze maze to add
+     * @throws IllegalArgumentException if the maze grid dimensions exceed a 100x100 box
      */
-    public void addMaze(Maze maze) {
+    public void addMaze(Maze maze) throws IllegalArgumentException {
+        if (maze.getMazeGrid().getMazeDimensions().getHeight() > 100
+            || maze.getMazeGrid().getMazeDimensions().getWidth() > 100) {
+            throw new IllegalArgumentException("Maze dimensions must not exceed a 100x100 bounding box");
+        }
         try {
             byte[] mazeGridBinary = getBinary(maze.getMazeGrid());
             addMaze.setString(1, maze.getMazeMetadata().getMazeName());
