@@ -6,12 +6,12 @@ import com.mdt.maze.MazeMetadata;
 
 import java.util.*;
 
-public class FakeDataSource implements MazeDataSource {
+public class FakeMazeDataSource implements MazeDataSource {
     Set<Maze> mazeSet;
     Set<MazeMetadata> mazeMetadataSet;
     TreeMap<MazeMetadata, MazeGridPanel> mazeMetadataMazeGridPanelTreeMap;
 
-    public FakeDataSource() {
+    public FakeMazeDataSource() {
         mazeSet = new HashSet<>();
         mazeMetadataSet = new HashSet<>();
         mazeMetadataMazeGridPanelTreeMap = new TreeMap<>();

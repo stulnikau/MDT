@@ -15,7 +15,7 @@ public class TestMazeDatabase {
 
     @BeforeEach
     public void ConstructMazeDatabase() {
-        FakeDataSource mockDataSource = new FakeDataSource();
+        FakeMazeDataSource mockDataSource = new FakeMazeDataSource();
         mazeDatabase = new MazeDatabase(mockDataSource);
     }
 
@@ -70,7 +70,7 @@ public class TestMazeDatabase {
 
     @Test
     public void TestNonEmptyDatabaseOnStartup() {
-        FakeDataSource mockDataSource = new FakeDataSource();
+        FakeMazeDataSource mockDataSource = new FakeMazeDataSource();
         MazeMetadata mazeMetadata = new MazeMetadata("foo", "bar");
         MazeGridPanel mazeGridPanel = new MazeGridPanel(new MazeDimensions(10, 10));
         mockDataSource.addMaze(new Maze(mazeMetadata, mazeGridPanel));
@@ -81,7 +81,7 @@ public class TestMazeDatabase {
 
     @Test
     public void TestNonEmptyDatabaseOnStartupLargeMaze() {
-        FakeDataSource mockDataSource = new FakeDataSource();
+        FakeMazeDataSource mockDataSource = new FakeMazeDataSource();
         MazeMetadata mazeMetadata = new MazeMetadata("foo", "bar");
         MazeGridPanel mazeGridPanel = new MazeGridPanel(new MazeDimensions(100, 100));
         mockDataSource.addMaze(new Maze(mazeMetadata, mazeGridPanel));
