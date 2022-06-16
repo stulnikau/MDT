@@ -3,12 +3,10 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Panel displayed on east Maze Generation panel.
- * CardLayout is used to switch between MazePropertiesPanel and ImagePropertiesPanel.
+ * Panel displayed on the right side of the Maze Generation panel.
  */
 public class PropertiesPanel extends JPanel {
     public final MazePropertiesPanel mazePropertiesPanel;
-    public final ImagePropertiesPanel imagePropertiesPanel;
 
     /**
      * Creates a new properties panel
@@ -19,10 +17,8 @@ public class PropertiesPanel extends JPanel {
         JPanel propertiesPanelContainer = new JPanel(cardLayout);
 
         mazePropertiesPanel = new MazePropertiesPanel();
-        imagePropertiesPanel = new ImagePropertiesPanel();
         this.add(Box.createHorizontalStrut(200), BorderLayout.SOUTH); // Fixed width
         propertiesPanelContainer.add(mazePropertiesPanel, "MazeProperties");
-        propertiesPanelContainer.add(imagePropertiesPanel, "ImageProperties");
         this.add(propertiesPanelContainer, BorderLayout.CENTER);
         cardLayout.show(propertiesPanelContainer, "MazeProperties");
 

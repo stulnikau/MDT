@@ -1,28 +1,26 @@
 package com.mdt.maze;
 
-import com.mdt.gui.mazeitems.MazeGrid;
+import com.mdt.gui.mazeitems.MazeGridPanel;
 
-import javax.swing.*;
-import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Logical representation of a maze. Contains
  * maze metadata and layout.
  */
 public class Maze {
-    private MazeLayout mazeLayout;
-    private MazeMetadata mazeMetadata;
-    private MazeDimensions mazeDimensions;
+    private final MazeGridPanel mazeGridPanel;
+    private final MazeMetadata mazeMetadata;
 
     /**
-     * Creates a new Maze instance. Saves the created and last
-     * modified date of the maze
-     * @param mazeName name of the maze
-     * @param authorName name of the maze author
+     * Creates a new Maze instance
+     * @param mazeGridPanel visual representation of the maze
+     * @param mazeMetadata maze metadata
      */
-    public Maze(String mazeName, String authorName) {
-
+    public Maze(MazeMetadata mazeMetadata, MazeGridPanel mazeGridPanel) {
+        this.mazeMetadata = mazeMetadata;
+        this.mazeGridPanel = mazeGridPanel;
     }
 
     /**
@@ -30,40 +28,15 @@ public class Maze {
      * @return maze metadata
      */
     public MazeMetadata getMazeMetadata() {
-        return null;
-    }
-
-    /**
-     * Gets the dimensions of the maze in width, height format
-     * @return width, height of the maze (in cells)
-     */
-    public MazeDimensions getMazeDimensions() {
-        return null;
-    }
-
-    /**
-     * Gets the maze layout of the maze
-     * @return maze layout of the maze
-     */
-    public MazeLayout getMazeLayout() {
-        return null;
-    }
-
-    /**
-     * Automatically generates a new maze using the MazeLayoutGenerator
-     * class. Uses any logos and/or start/end images already
-     * placed on the canvas in the generation process
-     * @see com.mdt.mazegenerate.MazeLayoutGenerator
-     */
-    public void autogenerateMaze() {
-
+        return mazeMetadata;
     }
 
     /**
      * Returns a maze grid that is a visual representation of the maze
+     * @return maze grid
      */
-    public MazeGrid getVisual() {
-        return null;
+    public MazeGridPanel getMazeGrid() {
+        return mazeGridPanel;
     }
 
     /**
@@ -87,46 +60,12 @@ public class Maze {
     }
 
     /**
-     * Binds the provided maze grid panel to the maze
-     * @param mazeGrid Visual representation of the maze
-     */
-    public void bindMazeGrid(MazeGrid mazeGrid) {
-
-    }
-
-    /**
-     * Saves a logo present inside the maze
-     * @param mazeLogo logo to be added
-     */
-    public void addLogo(MazeLogo mazeLogo) {
-
-    }
-
-    /**
-     * Adds start and end images to be used instead of wall openings in the maze
-     * @param startImage Image used for the start of the maze
-     * @param endImage Image used for the end of the maze
-     */
-    public void addStartAndEndImages(MazeStartEndImage startImage, MazeStartEndImage endImage) {
-
-    }
-
-    /**
      * Retrieves an optimal solution to the maze
      * @return Optimal solution to the maze in the form
      * of a list of grid values. Returns null if
      * no solution exists
      */
     public List<MazeLocation> getOptimalSolution() {
-        return null;
-    }
-
-    /**
-     * Get the maze in an encoded string form suitable for
-     * storage
-     * @return maze encoded in a storage format
-     */
-    public String[] getEncodedMaze() {
         return null;
     }
 }

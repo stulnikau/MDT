@@ -1,6 +1,6 @@
 package com.mdt.maze;
 
-import com.mdt.gui.mazeitems.MazeGrid;
+import com.mdt.gui.mazeitems.MazeGridPanel;
 
 /**
  * Container for storing the maze layout
@@ -9,10 +9,10 @@ public class MazeLayout {
     private String[] encodedLayout;
 
     /**
-     * Creates a new maze layout instance from the provided mazeGrid
-     * @param mazeGrid maze grid to translate into a layout
+     * Creates a new maze layout instance from the provided mazeGridPanel
+     * @param mazeGridPanel maze grid to translate into a layout
      */
-    public MazeLayout(MazeGrid mazeGrid) {
+    public MazeLayout(MazeGridPanel mazeGridPanel) {
 
     }
 

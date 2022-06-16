@@ -1,9 +1,17 @@
 package com.mdt.gui;
 
+import com.mdt.Program;
+import com.mdt.gui.mazeitems.MazeGridPanel;
+import com.mdt.maze.Maze;
+import com.mdt.maze.MazeMetadata;
+import com.mdt.mazedatabase.MazeDatabase;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * The top-level container of the application. All GUI panels and elements
@@ -29,6 +37,8 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
     private JPanel mainPanel;
     private CardLayout cardLayout;
 
+    private MazeDatabase mazeDatabase;
+
     /**
      * Create the GUI and show it. For thread safety, this method should be
      * invoked from the event-dispatching thread
@@ -39,22 +49,25 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
+        this.mazeDatabase = new MazeDatabase();
+
         // Main JPanel setup
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
         // Add components
         // Panel for the Landing screen
-        landingPanel = new LandingPanel();
+        landingPanel = new LandingPanel(mazeDatabase);
         mainPanel.add(landingPanel, "Landing");
         // Panel for adding metadata when creating a new maze
         addMetadataPanel = new AddMetadataPanel();
         mainPanel.add(addMetadataPanel, "AddMetadata");
-        // Panel for generating and customizing Maze
-        mazeGenerationPanel = new MazeGenerationPanel();
-        mainPanel.add(mazeGenerationPanel, "MazeGeneration");
         // Dialog for exporting mazes
         exportDialog = new ExportDialog(this);
+        // Panel for generating and customizing Maze with dummy values for dimensions
+        // Values are overridden once the user requests a new maze
+        mazeGenerationPanel = new MazeGenerationPanel();
+        mainPanel.add(mazeGenerationPanel, "MazeGeneration");
 
         // Add mainPanel to JFrame
         this.getContentPane().add(mainPanel, BorderLayout.CENTER);
@@ -66,6 +79,8 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         addMetadataPanel.progressControlPanel.nextButton.addActionListener(this);
         mazeGenerationPanel.progressControlPanel.prevButton.addActionListener(this);
         mazeGenerationPanel.progressControlPanel.nextButton.addActionListener(this);
+
+        this.addWindowListener(new ClosingListener());
 
         // Pack components
         this.pack();
@@ -86,7 +101,7 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
     /**
      * Actions taken when the user selects to create a new maze
      */
-    public void showNewMazeDialog() {
+    private void showNewMazeDialog() {
         // Show add metadata panel
         super.setTitle("New Maze");
         cardLayout.show(mainPanel, "AddMetadata");
@@ -96,7 +111,7 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
      * Actions taken when the user selects to come back
      * to the landing page
      */
-    public void showLanding() {
+    private void showLanding() {
         super.setTitle("Welcome to Maze Design Tool");
         cardLayout.show(mainPanel, "Landing");
     }
@@ -105,8 +120,21 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
      * Actions taken when the user selects to proceed with
      * creating a new maze from the add metadata panel
      */
-    public void showMazeGeneration() {
-        super.setTitle("Maze Name");
+    private void showMazeGeneration() {
+        super.setTitle(addMetadataPanel.getMazeTitle());
+        // Update the maze generation panel with the inputs provided by user
+        mazeGenerationPanel.setMazeDimensions(addMetadataPanel.getMazeDimensions());
+        if (addMetadataPanel.mazeWithStartEndImages()) {
+            mazeGenerationPanel.setMazeStartEndImages(
+                    addMetadataPanel.getStartImage(),
+                    addMetadataPanel.getEndImage());
+        }
+        if (addMetadataPanel.mazeWithLogo()) {
+            mazeGenerationPanel.setMazeLogo(
+                    addMetadataPanel.getMazeLogo()
+            );
+        }
+        mazeGenerationPanel.initialiseWithParams();
         cardLayout.show(mainPanel,"MazeGeneration");
     }
 
@@ -114,9 +142,22 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
      * Actions taken when the user chooses to export
      * selected mazes from the maze table
      */
-    public void showExportDialog() {
+    private void showExportDialog() {
         exportDialog.setLocationRelativeTo(this);
         exportDialog.setVisible(true);
+    }
+
+    /**
+     * Saves the most recent maze into the database
+     */
+    private void saveRecentMaze() {
+        MazeGridPanel mazeGridPanel = mazeGenerationPanel.mazeCanvasPanel.getMazeGrid();
+        MazeMetadata mazeMetadata = new MazeMetadata(
+                addMetadataPanel.getMazeName(),
+                addMetadataPanel.getMazeAuthor()
+        );
+        Maze maze = new Maze(mazeMetadata, mazeGridPanel);
+        mazeDatabase.writeMaze(maze);
     }
 
     /**
@@ -137,9 +178,22 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         } else if (addMetadataPanel.progressControlPanel.prevButton.equals(src)) {
             showLanding();
         } else if (mazeGenerationPanel.progressControlPanel.nextButton.equals(src)) {
+            saveRecentMaze();
             showLanding();
         } else if (mazeGenerationPanel.progressControlPanel.prevButton.equals(src)) {
             showNewMazeDialog();
+        }
+    }
+
+    /**
+     * Additional actions performed on window close to gracefully disconnect
+     * from the maze database
+     */
+    private class ClosingListener extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            mazeDatabase.close();
+            System.exit(0);
         }
     }
 }
