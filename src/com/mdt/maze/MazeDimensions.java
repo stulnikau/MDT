@@ -18,6 +18,7 @@ public class MazeDimensions implements Serializable {
         if (w < 1 || h < 1) {
             throw new IllegalArgumentException("width and height must be positive");
         }
+
         this.width = w;
         this.height = h;
     }
@@ -36,5 +37,14 @@ public class MazeDimensions implements Serializable {
      */
     public int getHeight() {
         return height;
+    }
+
+    /**
+     * Check whether the logo fits within the boundaries
+     * @param mazeLogo Maze logo
+     * @return Whether the logo is within the dimensions
+     */
+    public boolean withinBounds(MazeLogo mazeLogo) {
+        return false;
     }
 }

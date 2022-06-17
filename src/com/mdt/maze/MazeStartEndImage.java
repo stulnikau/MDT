@@ -7,6 +7,7 @@ import java.io.File;
  * Specifies the properties of start/end images on the maze canvas
  */
 public class MazeStartEndImage extends MazeEntryExitPoint implements MazeImage {
+    
     /**
      * Gets the ImageIcon corresponding to the MazeStartEndImage instance
      * @return ImageIcon corresponding to the MazeStartEndImage instance
