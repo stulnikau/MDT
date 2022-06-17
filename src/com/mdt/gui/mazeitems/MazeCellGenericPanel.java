@@ -14,7 +14,11 @@ public abstract class MazeCellGenericPanel extends JPanel {
      */
     public abstract void unhighlightSolution();
 
-
+    /**
+     * Check if the cell is a wall
+     * @return boolean indicating whether the cell is a wall
+     */
+    public abstract boolean isWall();
 
     /**
      * New generic maze cell panel

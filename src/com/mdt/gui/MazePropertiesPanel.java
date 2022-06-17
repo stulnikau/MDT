@@ -1,7 +1,10 @@
 package com.mdt.gui;
 
+import com.mdt.gui.adapters.ShowSolutionListener;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
 
 /**
  * Side panel controlling the properties for the maze
@@ -76,7 +79,7 @@ public class MazePropertiesPanel extends JPanel {
     /**
      * Creates a new MazePropertiesPanel
      */
-    public MazePropertiesPanel() {
+    public MazePropertiesPanel(ShowSolutionListener listener) {
         super(new GridBagLayout());
         header = new JLabel("Maze Properties");
         header.setFont(GUIFrame.HEADING_3);
@@ -86,6 +89,7 @@ public class MazePropertiesPanel extends JPanel {
         autoGenerate = new JButton("Autogenerate Maze");
         solutionPrompt = new JLabel("Show maze solution");
         solutionStatus = new JCheckBox();
+        solutionStatus.addItemListener(e -> listener.toggleMazeSolution(e.getStateChange() == ItemEvent.SELECTED));
 
         setupLayout();
     }

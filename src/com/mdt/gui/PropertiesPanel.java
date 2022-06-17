@@ -1,4 +1,6 @@
 package com.mdt.gui;
+import com.mdt.gui.adapters.ShowSolutionListener;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,12 +13,12 @@ public class PropertiesPanel extends JPanel {
     /**
      * Creates a new properties panel
      */
-    public PropertiesPanel() {
+    public PropertiesPanel(ShowSolutionListener listener) {
         super(new BorderLayout());
         CardLayout cardLayout = new CardLayout();
         JPanel propertiesPanelContainer = new JPanel(cardLayout);
 
-        mazePropertiesPanel = new MazePropertiesPanel();
+        mazePropertiesPanel = new MazePropertiesPanel(listener);
         this.add(Box.createHorizontalStrut(200), BorderLayout.SOUTH); // Fixed width
         propertiesPanelContainer.add(mazePropertiesPanel, "MazeProperties");
         this.add(propertiesPanelContainer, BorderLayout.CENTER);

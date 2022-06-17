@@ -6,13 +6,14 @@ import com.mdt.maze.MazeLocation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Helper class to retrieve maze solution and solveability metrics
  * Credit: Baeldung https://www.baeldung.com/java-solve-maze
  */
 public class MazeSolver {
-    private static int[][] DIRECTIONS = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+    private static final int[][] DIRECTIONS = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
     /**
      * Get new adjacent maze location
@@ -82,20 +83,16 @@ public class MazeSolver {
     /**
      * Retrieves an optimal solution to the maze
      * @return Optimal solution to the maze in the form
-     * of a list of grid values. Returns empty list if
+     * of a list of grid values. Returns empty vector if
      * no solution exists
      */
-    public List<MazeLocation> getOptimalSolution(MazeLayout maze) {
-        List<MazeLocation> path = new ArrayList<>();
-        if (
-                explore(
-                        maze,
-                        maze.getEntry(),
-                        path
-                )
-        ) {
-            return path;
-        }
-        return Collections.emptyList();
+    public Vector<MazeLocation> getOptimalSolution(MazeLayout maze) {
+        ArrayList<MazeLocation> path = new ArrayList<>();
+        explore(
+                maze,
+                maze.getEntry(),
+                path
+        );
+        return new Vector<>(path);
     }
 }

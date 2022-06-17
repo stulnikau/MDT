@@ -4,6 +4,7 @@ import com.mdt.maze.MazeDimensions;
 import com.mdt.maze.MazeLayout;
 import com.mdt.maze.MazeLocation;
 import com.mdt.maze.MazeLogo;
+import com.mdt.mazesolver.MazeSolver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,9 +13,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Panel to contain the maze grid. By default,
@@ -30,7 +29,8 @@ public class MazeGridPanel extends JPanel implements Serializable {
     private MazeLogo logo;
     private ImageIcon wholeLogo;
     private final MazeDimensions mazeDimensions;
-    private Map<MazeLocation, MazeCellGenericPanel> cells;
+    private TreeMap<MazeLocation, MazeCellGenericPanel> cells;
+    private Vector<MazeLocation> solutionPath;
 
     // Default side dimension for the cell
     private static final int DEFAULT_SIDE_DIM = 25;
@@ -116,7 +116,7 @@ public class MazeGridPanel extends JPanel implements Serializable {
     private void setupGrid(MazeDimensions mazeDimensions) {
         this.rows = mazeDimensions.getHeight();
         this.cols = mazeDimensions.getWidth();
-        this.cells = new HashMap<>();
+        this.cells = new TreeMap<>();
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
@@ -266,7 +266,22 @@ public class MazeGridPanel extends JPanel implements Serializable {
     /**
      * Show optimal maze solution on the grid
      */
-    public void showSolution(boolean show) {
+    public void showSolution() {
+        MazeLayout mazeLayout = new MazeLayout(mazeDimensions, cells);
+        MazeSolver mazeSolver = new MazeSolver();
+        solutionPath = mazeSolver.getOptimalSolution(mazeLayout);
 
+        for (MazeLocation cell : solutionPath) {
+            cells.get(cell).highlightSolution();
+        }
+    }
+
+    /**
+     * Hide optimal maze solution
+     */
+    public void hideSolution() {
+        for (MazeLocation cell : solutionPath) {
+            cells.get(cell).unhighlightSolution();
+        }
     }
 }

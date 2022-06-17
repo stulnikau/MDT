@@ -26,7 +26,7 @@ public class MazeCellPanel extends MazeCellGenericPanel implements Serializable 
      */
     @Override
     public void highlightSolution() {
-
+        this.setBackground(Color.GREEN);
     }
 
     /**
@@ -34,7 +34,16 @@ public class MazeCellPanel extends MazeCellGenericPanel implements Serializable 
      */
     @Override
     public void unhighlightSolution() {
+        setBackgroundBasedOnWallStatus();
+    }
 
+    /**
+     * Check if the cell is a wall
+     * @return boolean indicating whether the cell is a wall
+     */
+    @Override
+    public boolean isWall() {
+        return wallStatus;
     }
 
     /**

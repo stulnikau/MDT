@@ -42,4 +42,13 @@ public class MazeImageCellPanel extends MazeCellGenericPanel implements Serializ
     public void unhighlightSolution() {
 
     }
+
+    /**
+     * Check if the cell is a wall
+     * @return boolean indicating whether the cell is a wall
+     */
+    @Override
+    public boolean isWall() {
+        return false;
+    }
 }

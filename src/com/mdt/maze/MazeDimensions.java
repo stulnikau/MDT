@@ -52,6 +52,7 @@ public class MazeDimensions implements Serializable {
      * @return boolean indicating whether the location is valid
      */
     public boolean validLocation(MazeLocation mazeLocation) {
-
+        return (0 <= mazeLocation.getCol() && mazeLocation.getCol() <= width - 1) &&
+                (0 <= mazeLocation.getRow() && mazeLocation.getRow() <= height - 1);
     }
 }
