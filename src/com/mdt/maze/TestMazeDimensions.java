@@ -32,7 +32,6 @@ public class TestMazeDimensions {
     public void TestMaxDimensions() {
         assertDoesNotThrow(() -> {
             MazeDimensions mazeDimensions = new MazeDimensions(100, 100);
-
         });
     }
 
@@ -75,6 +74,4 @@ public class TestMazeDimensions {
                 new MazeDimensions(2, 2), new MazeLocation(2, 20) );
         assertFalse( mazeDimensions.withinBounds(mazeLogo));
     }
-
-
 }

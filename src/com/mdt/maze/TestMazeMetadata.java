@@ -49,12 +49,11 @@ class TestMazeMetadata {
     }
 
     @Test
-    public void TestEmptyDateConstructor(){
+    public void TestEmptyDateConstructor() {
         assertThrows(IllegalArgumentException.class,
                 ()-> {
                    MazeMetadata mazeMetadata1 = new MazeMetadata("Maze 2", "Raghav Sharma", "","");
                 });
-
     }
 
 
