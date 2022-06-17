@@ -17,6 +17,7 @@ import java.util.Vector;
  * in the directory specified by the user
  */
 public class ExportDialog extends JDialog implements ActionListener {
+    private String exportDirectory;
     private final JPanel exportPropertiesPanel;
     private final ProgressControlPanel progressControlPanel;
     private final JLabel saveToLabel;
@@ -80,8 +81,9 @@ public class ExportDialog extends JDialog implements ActionListener {
         exportPropertiesPanel = new JPanel(new GridBagLayout());
         progressControlPanel = new ProgressControlPanel("Export", "Cancel");
 
+        exportDirectory = System.getProperty("user.home");
         saveToLabel = new JLabel("Export to:");
-        dirField = new JTextField("/Users/maze_user/Pictures");
+        dirField = new JTextField(exportDirectory);
         fileChooserBtn = new JButton("...");
         includeSolutionStatus = new JCheckBox();
         solutionPrompt = new JLabel("Include optimal solution path");
@@ -108,7 +110,14 @@ public class ExportDialog extends JDialog implements ActionListener {
      * Allows the user to select the directories
      */
     public void showFileChooser() {
-        fileChooser.showDialog(this, "Select");
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setDialogTitle("Export Directory");
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        int selection = fileChooser.showOpenDialog(null);
+        if (selection == JFileChooser.APPROVE_OPTION) {
+            exportDirectory = fileChooser.getSelectedFile().getAbsolutePath();
+            dirField.setText(exportDirectory);
+        }
     }
 
     /**
@@ -130,7 +139,7 @@ public class ExportDialog extends JDialog implements ActionListener {
         if (fileChooserBtn.equals(src)) {
             showFileChooser();
         } else if (progressControlPanel.nextButton.equals(src)) {
-            MazeExportHandler exportHandler = new MazeExportHandler("./", false);
+            MazeExportHandler exportHandler = new MazeExportHandler(exportDirectory, false);
             for (Maze maze : mazes) {
                 exportHandler.exportMaze(maze);
             }

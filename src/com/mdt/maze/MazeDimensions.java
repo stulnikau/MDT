@@ -41,7 +41,7 @@ public class MazeDimensions implements Serializable {
     /**
      * @return gets the largest of the height and width
      */
-    public int getLargerDimension() {
+    public int getLargestSide() {
         return Math.max(width, height);
     }
 }

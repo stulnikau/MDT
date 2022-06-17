@@ -7,12 +7,12 @@ public class TestMazeDimensions {
     @Test
     public void TestLargerDimension() {
         MazeDimensions mazeDimensions = new MazeDimensions(10, 12);
-        assertEquals(12, mazeDimensions.getLargerDimension());
+        assertEquals(12, mazeDimensions.getLargestSide());
     }
 
     @Test
     public void TestLargerDimensionEqualSides() {
         MazeDimensions mazeDimensions = new MazeDimensions(14, 14);
-        assertEquals(14, mazeDimensions.getLargerDimension());
+        assertEquals(14, mazeDimensions.getLargestSide());
     }
 }

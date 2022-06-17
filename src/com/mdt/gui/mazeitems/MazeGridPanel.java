@@ -20,8 +20,8 @@ import java.util.Objects;
  * right
  */
 public class MazeGridPanel extends JPanel implements Serializable {
-    public int rows;
-    public int cols;
+    private int rows;
+    private int cols;
     private ImageIcon entryIcon;
     private ImageIcon exitIcon;
     private MazeLogo logo;
