@@ -38,34 +38,4 @@ public class Maze {
     public MazeGridPanel getMazeGrid() {
         return mazeGridPanel;
     }
-
-    /**
-     * Gets the percentage of cells that are reached by the
-     * optimal solution to the maze
-     * @return number of cells expressed as a percentage of
-     * the total number of cells in the maze. Returns 0 if
-     * no solution exists
-     */
-    public double getCellsReachedByOptimalSolution() {
-        return 0;
-    }
-
-    /**
-     * Gets the percentage of cells that are dead ends
-     * @return number of cells expressed as a percentage of
-     * the total number of cells in the maze
-     */
-    public double getDeadEndCells() {
-        return 0;
-    }
-
-    /**
-     * Retrieves an optimal solution to the maze
-     * @return Optimal solution to the maze in the form
-     * of a list of grid values. Returns null if
-     * no solution exists
-     */
-    public List<MazeLocation> getOptimalSolution() {
-        return null;
-    }
 }
