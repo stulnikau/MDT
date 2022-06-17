@@ -15,6 +15,9 @@ public class MazeLocation implements Serializable {
      * @param col column on the maze
      */
     public MazeLocation(int row, int col) {
+        if (row < 1 || col < 1) {
+            throw new IllegalArgumentException("row and column must be positive");
+        }
         this.row = row;
         this.col = col;
     }
