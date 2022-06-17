@@ -20,12 +20,13 @@ import java.util.Objects;
  * right
  */
 public class MazeGridPanel extends JPanel implements Serializable {
-    public int rows;
-    public int cols;
+    private int rows;
+    private int cols;
     private ImageIcon entryIcon;
     private ImageIcon exitIcon;
     private MazeLogo logo;
     private ImageIcon wholeLogo;
+    private final MazeDimensions mazeDimensions;
 
     // Default side dimension for the cell
     private static final int DEFAULT_SIDE_DIM = 25;
@@ -36,6 +37,7 @@ public class MazeGridPanel extends JPanel implements Serializable {
      */
     public MazeGridPanel(MazeDimensions mazeDimensions) {
         super(new GridLayout(0, mazeDimensions.getWidth()));
+        this.mazeDimensions = mazeDimensions;
         try {
             this.entryIcon = getMazeBackgroundImageIcon("arrow.png");
             this.exitIcon = entryIcon;
@@ -53,6 +55,7 @@ public class MazeGridPanel extends JPanel implements Serializable {
      */
     public MazeGridPanel(MazeDimensions mazeDimensions, File startImage, File endImage) {
         super(new GridLayout(0, mazeDimensions.getWidth()));
+        this.mazeDimensions = mazeDimensions;
         try {
             this.entryIcon = getMazeBackgroundImageIcon(startImage);
             this.exitIcon = getMazeBackgroundImageIcon(endImage);
@@ -71,6 +74,7 @@ public class MazeGridPanel extends JPanel implements Serializable {
      */
     public MazeGridPanel(MazeDimensions mazeDimensions, File startImage, File endImage, MazeLogo logo) {
         super(new GridLayout(0, mazeDimensions.getWidth()));
+        this.mazeDimensions = mazeDimensions;
         this.logo = logo;
         try {
             this.entryIcon = getMazeBackgroundImageIcon(startImage);
@@ -89,6 +93,7 @@ public class MazeGridPanel extends JPanel implements Serializable {
      */
     public MazeGridPanel(MazeDimensions mazeDimensions, MazeLogo logo) {
         super(new GridLayout(0, mazeDimensions.getWidth()));
+        this.mazeDimensions = mazeDimensions;
         this.logo = logo;
         try {
             this.entryIcon = getMazeBackgroundImageIcon("arrow.png");
@@ -225,5 +230,19 @@ public class MazeGridPanel extends JPanel implements Serializable {
     private boolean exitCell(int row, int col) {
         // Exit cell
         return row == rows - 1 && col == cols - 2;
+    }
+
+    /**
+     * @return maze dimensions
+     */
+    public MazeDimensions getMazeDimensions() {
+        return mazeDimensions;
+    }
+
+    /**
+     * Show optimal maze solution on the grid
+     */
+    public void showSolution(boolean show) {
+
     }
 }

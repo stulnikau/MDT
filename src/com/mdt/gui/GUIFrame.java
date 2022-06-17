@@ -4,14 +4,20 @@ import com.mdt.Program;
 import com.mdt.gui.mazeitems.MazeGridPanel;
 import com.mdt.maze.Maze;
 import com.mdt.maze.MazeMetadata;
+import com.mdt.mazedatabase.DBConnection;
+import com.mdt.mazedatabase.JDBCMazeDataSource;
 import com.mdt.mazedatabase.MazeDatabase;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * The top-level container of the application. All GUI panels and elements
@@ -49,7 +55,7 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
-        this.mazeDatabase = new MazeDatabase();
+        this.mazeDatabase = new MazeDatabase(new JDBCMazeDataSource(DBConnection.getInstance()));
 
         // Main JPanel setup
         cardLayout = new CardLayout();
@@ -143,6 +149,16 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
      * selected mazes from the maze table
      */
     private void showExportDialog() {
+        int[] rowsToExport = landingPanel.mazeBrowserTable.getSelectedRows();
+        Vector<Maze> mazes = new Vector<>();
+        for (int row : rowsToExport) {
+            int modelIndex = landingPanel.mazeBrowserTable.convertRowIndexToModel(row);
+            DefaultTableModel tableModel = (DefaultTableModel) landingPanel.mazeBrowserTable.getModel();
+            MazeMetadata mazeToGet = new MazeMetadata(tableModel.getDataVector().elementAt(modelIndex));
+            mazes.add(mazeDatabase.getMaze(mazeToGet));
+        }
+
+        exportDialog.bindMazeGrids(mazes);
         exportDialog.setLocationRelativeTo(this);
         exportDialog.setVisible(true);
     }
@@ -171,7 +187,6 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         if (landingPanel.landingControlPanel.newMaze.equals(src)) {
             showNewMazeDialog();
         } else if (landingPanel.landingControlPanel.exportItems.equals(src)) {
-            int[] rowsToExport = landingPanel.mazeBrowserTable.getSelectedRows();
             showExportDialog();
         } else if (addMetadataPanel.progressControlPanel.nextButton.equals(src)) {
             showMazeGeneration();
