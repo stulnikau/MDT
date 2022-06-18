@@ -1,6 +1,7 @@
 package com.mdt.gui;
 
 import com.mdt.Program;
+import com.mdt.gui.adapters.ShowSolutionListener;
 import com.mdt.gui.mazeitems.MazeGridPanel;
 import com.mdt.maze.Maze;
 import com.mdt.maze.MazeMetadata;
@@ -26,7 +27,7 @@ import java.util.Vector;
  * used across the GUI. It also adds itself as an action listener for
  * JButtons in child classes.
  */
-public class GUIFrame extends JFrame implements ActionListener, Runnable {
+public class GUIFrame extends JFrame implements ActionListener, Runnable, ShowSolutionListener {
     // Define some fonts for use application-wide
     public static final Font SYSTEM_FONT = new JLabel().getFont(); // Default system font
     public static final Font HEADING_1 = GUIFrame.SYSTEM_FONT.deriveFont(Font.BOLD, 30.0F); // Large heading
@@ -72,7 +73,7 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         exportDialog = new ExportDialog(this);
         // Panel for generating and customizing Maze with dummy values for dimensions
         // Values are overridden once the user requests a new maze
-        mazeGenerationPanel = new MazeGenerationPanel();
+        mazeGenerationPanel = new MazeGenerationPanel(this);
         mainPanel.add(mazeGenerationPanel, "MazeGeneration");
 
         // Add mainPanel to JFrame
@@ -174,6 +175,19 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         );
         Maze maze = new Maze(mazeMetadata, mazeGridPanel);
         mazeDatabase.writeMaze(maze);
+    }
+
+    /**
+     * Shows or hides maze solution on the maze canvas
+     * @param showSolution show solution
+     * @return maze solve-ability and dead end cells
+     */
+    public String[] toggleMazeSolution(boolean showSolution) {
+        if (showSolution) {
+            return mazeGenerationPanel.mazeCanvasPanel.getMazeGrid().showSolution();
+        } else {
+            return mazeGenerationPanel.mazeCanvasPanel.getMazeGrid().hideSolution();
+        }
     }
 
     /**

@@ -1,7 +1,10 @@
 package com.mdt.gui;
 
+import com.mdt.gui.adapters.ShowSolutionListener;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
 
 /**
  * Side panel controlling the properties for the maze
@@ -76,16 +79,21 @@ public class MazePropertiesPanel extends JPanel {
     /**
      * Creates a new MazePropertiesPanel
      */
-    public MazePropertiesPanel() {
+    public MazePropertiesPanel(ShowSolutionListener listener) {
         super(new GridBagLayout());
         header = new JLabel("Maze Properties");
         header.setFont(GUIFrame.HEADING_3);
 
-        reachabilityLabel = new JLabel("Cells reached by solution: 27%");
-        deadEndLabel = new JLabel("Dead end cells: 16%");
+        reachabilityLabel = new JLabel("Cells reached by solution: -   ");
+        deadEndLabel = new JLabel("Dead end cells: -");
         autoGenerate = new JButton("Autogenerate Maze");
         solutionPrompt = new JLabel("Show maze solution");
         solutionStatus = new JCheckBox();
+        solutionStatus.addItemListener(e -> {
+            String[] metrics = listener.toggleMazeSolution(e.getStateChange() == ItemEvent.SELECTED);
+            reachabilityLabel.setText("Cells reached by solution: " + metrics[0]);
+            deadEndLabel.setText("Dead end cells: " + metrics[1]);
+        });
 
         setupLayout();
     }

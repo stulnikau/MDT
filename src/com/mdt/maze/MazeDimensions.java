@@ -44,4 +44,15 @@ public class MazeDimensions implements Serializable {
     public int getLargestSide() {
         return Math.max(width, height);
     }
+
+    /**
+     * Checks whether the location is a valid location within the bounds of the
+     * maze dimensions
+     * @param mazeLocation location to check
+     * @return boolean indicating whether the location is valid
+     */
+    public boolean validLocation(MazeLocation mazeLocation) {
+        return (0 <= mazeLocation.getCol() && mazeLocation.getCol() <= width - 1) &&
+                (0 <= mazeLocation.getRow() && mazeLocation.getRow() <= height - 1);
+    }
 }

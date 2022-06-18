@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -86,6 +87,7 @@ public class ExportDialog extends JDialog implements ActionListener {
         dirField = new JTextField(exportDirectory);
         fileChooserBtn = new JButton("...");
         includeSolutionStatus = new JCheckBox();
+
         solutionPrompt = new JLabel("Include optimal solution path");
         fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -139,7 +141,7 @@ public class ExportDialog extends JDialog implements ActionListener {
         if (fileChooserBtn.equals(src)) {
             showFileChooser();
         } else if (progressControlPanel.nextButton.equals(src)) {
-            MazeExportHandler exportHandler = new MazeExportHandler(exportDirectory, false);
+            MazeExportHandler exportHandler = new MazeExportHandler(exportDirectory, includeSolutionStatus.isSelected());
             for (Maze maze : mazes) {
                 exportHandler.exportMaze(maze);
             }

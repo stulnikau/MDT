@@ -44,7 +44,6 @@ public class MazeExportHandler {
         if (mazeGridPanel.getMazeDimensions().getLargestSide() > 100) {
             throw new IllegalArgumentException("Maze grid cannot be exported as it exceeds dimensions of 100 by 100 cells");
         }
-        mazeGridPanel.showSolution(includeSolution);
         mazeGridPanel.setSize(mazeGridPanel.getPreferredSize());
 
         double scalingFactor = getScalingFactor(mazeGridPanel.getMazeDimensions().getLargestSide());
@@ -55,6 +54,9 @@ public class MazeExportHandler {
                 mazeGridPanel.getHeight(),
                 BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = originalImage.createGraphics();
+        if (includeSolution) {
+            mazeGridPanel.showSolution();
+        }
         mazeGridPanel.printAll(graphics);
         graphics.dispose();
         try {
