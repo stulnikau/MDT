@@ -1,4 +1,4 @@
-jdbc.url=jdbc:sqlite:mdt.db
+jdbc.url=jdbc:postgresql://localhost
 jdbc.schema=
 jdbc.username=
 jdbc.password=
