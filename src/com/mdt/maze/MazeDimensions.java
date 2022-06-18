@@ -18,6 +18,10 @@ public class MazeDimensions implements Serializable {
         if (w < 1 || h < 1) {
             throw new IllegalArgumentException("width and height must be positive");
         }
+        if (w > 100 || h > 100) {
+            throw new IllegalArgumentException("Dimension must be 100x100 or less");
+        }
+
         this.width = w;
         this.height = h;
     }
@@ -54,5 +58,15 @@ public class MazeDimensions implements Serializable {
     public boolean validLocation(MazeLocation mazeLocation) {
         return (0 <= mazeLocation.getCol() && mazeLocation.getCol() <= width - 1) &&
                 (0 <= mazeLocation.getRow() && mazeLocation.getRow() <= height - 1);
+    }
+
+    /**
+     * Check whether the logo fits within the boundaries
+     * @param mazeLogo Maze logo
+     * @return Whether the logo is within the dimensions
+     */
+    public boolean withinBounds(MazeLogo mazeLogo) {
+        return (mazeLogo.getLocation().getCol() + mazeLogo.getDimensions().getWidth() - 1) <= this.width &&
+                (mazeLogo.getLocation().getRow() + mazeLogo.getDimensions().getHeight() - 1) <= this.height;
     }
 }

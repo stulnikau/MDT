@@ -32,6 +32,9 @@ public class MazeMetadata implements Comparable {
      * @param mazeLastModifiedDate maze last modified date
      */
     public MazeMetadata(String mazeName, String mazeAuthor, String mazeCreatedDate, String mazeLastModifiedDate) {
+        if( mazeCreatedDate.equals("") || mazeLastModifiedDate.equals("")){
+            throw new IllegalArgumentException("Date Created and Last Modified date must have an value");
+        }
         this.mazeName = mazeName;
         this.mazeAuthor = mazeAuthor;
         this.mazeCreatedDate = mazeCreatedDate;
