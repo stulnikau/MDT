@@ -138,7 +138,7 @@ public class TestMazeSolver {
         cells.put(new MazeLocation(6, 3), wallPanel);
         MazeLayout mazeLayout = new MazeLayout(new MazeDimensions(4, 7), cells);
         Vector<MazeLocation> solution = mazeSolver.getOptimalSolution(mazeLayout);
-        assertEquals(1.0, mazeSolver.getSolutionCellsProportionMetric(mazeLayout, solution));
+        assertEquals(100.0, mazeSolver.getSolutionCellsProportionMetric(mazeLayout, solution));
     }
 
     @Test

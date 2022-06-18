@@ -182,7 +182,7 @@ public class MazeGridPanel extends JPanel implements Serializable {
      */
     private ImageIcon getMazeBackgroundImageIcon(String filename) throws IOException {
         return new ImageIcon(ImageIO
-                .read(Objects.requireNonNull(getClass().getResource(filename)))
+                .read(new File("resources", filename))
                 .getScaledInstance(DEFAULT_SIDE_DIM, DEFAULT_SIDE_DIM, Image.SCALE_SMOOTH));
     }
 

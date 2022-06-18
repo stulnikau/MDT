@@ -14,7 +14,7 @@ class TestMazeLogo {
     public void SetUpObject() {
         testDimensions = new MazeDimensions(2, 2);
         testLocation = new MazeLocation(3, 3);
-        testMazeLogo = new File("./src/com/mdt/gui/mazeitems/arrow.png");
+        testMazeLogo = new File("resources", "arrow.png");
         mazeLogo = new MazeLogo(testMazeLogo,
                 testDimensions, testLocation);
     }

@@ -121,7 +121,7 @@ public class MazeSolver {
     public double getSolutionCellsProportionMetric(MazeLayout mazeLayout, Vector<MazeLocation> solution) {
         int freeCells = freeCells(mazeLayout);
         int solutionCells = solution.size();
-        return (double) solutionCells / (double) freeCells;
+        return (double) solutionCells / (double) freeCells * 100;
     }
 
     /**
@@ -140,6 +140,6 @@ public class MazeSolver {
                 }
             }
         }
-        return (double) deadEnds / (double) freeCells;
+        return (double) deadEnds / (double) freeCells * 100;
     }
 }

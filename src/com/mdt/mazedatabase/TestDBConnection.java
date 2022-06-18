@@ -17,8 +17,8 @@ public class TestDBConnection {
     }
 
     static boolean renameProps() {
-        File original = new File("./db.props");
-        File newFile = new File("./db_temp_test.props");
+        File original = new File("db.props");
+        File newFile = new File("db_temp_test.props");
         if (original.exists()) {
             return original.renameTo(newFile);
         }
@@ -26,8 +26,8 @@ public class TestDBConnection {
     }
 
     static void renamePropsBack() {
-        File original = new File("./db_temp_test.props");
-        File newFile = new File("./db.props");
+        File original = new File("db_temp_test.props");
+        File newFile = new File("db.props");
         if (original.exists()) {
             original.renameTo(newFile);
         }

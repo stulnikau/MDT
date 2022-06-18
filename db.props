@@ -1,4 +1,4 @@
-jdbc.url=jdbc:sqlite:cab302.db
+jdbc.url=jdbc:sqlite:mdt.db
 jdbc.schema=
 jdbc.username=
 jdbc.password=

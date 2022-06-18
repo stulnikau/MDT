@@ -24,3 +24,6 @@ hs_err_pid*
 
 # Database files
 *.db
+
+# Unit testing resources output
+testoutput/
