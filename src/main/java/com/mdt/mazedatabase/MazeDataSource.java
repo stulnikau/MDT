@@ -6,6 +6,9 @@ import com.mdt.maze.MazeMetadata;
 
 import java.util.Set;
 
+/**
+ * Common interface for a maze data source
+ */
 public interface MazeDataSource {
     /**
      * Adds a maze to the database
