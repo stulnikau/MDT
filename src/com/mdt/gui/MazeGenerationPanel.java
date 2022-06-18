@@ -1,5 +1,6 @@
 package com.mdt.gui;
 
+import com.mdt.gui.adapters.ShowSolutionListener;
 import com.mdt.gui.generics.ProgressControlPanel;
 import com.mdt.gui.mazeitems.MazeCanvasPanel;
 import com.mdt.maze.MazeDimensions;
@@ -26,9 +27,9 @@ public class MazeGenerationPanel extends JPanel {
     /**
      * Creates a new panel for generating a maze
      */
-    public MazeGenerationPanel() {
+    public MazeGenerationPanel(ShowSolutionListener listener) {
         super(new BorderLayout());
-        propertiesPanel = new PropertiesPanel();
+        propertiesPanel = new PropertiesPanel(listener);
         // Creates a maze canvas with a default value that will be overridden
         // by a method invoked when the user selects the maze options
         mazeDimensions = new MazeDimensions(25, 25);

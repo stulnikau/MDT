@@ -1,17 +1,18 @@
 package com.mdt.gui.mazeitems;
 
 import com.mdt.maze.MazeDimensions;
+import com.mdt.maze.MazeLayout;
 import com.mdt.maze.MazeLocation;
 import com.mdt.maze.MazeLogo;
+import com.mdt.mazesolver.MazeSolver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
 import java.io.*;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Panel to contain the maze grid. By default,
@@ -20,12 +21,15 @@ import java.util.Objects;
  * right
  */
 public class MazeGridPanel extends JPanel implements Serializable {
-    public int rows;
-    public int cols;
+    private int rows;
+    private int cols;
     private ImageIcon entryIcon;
     private ImageIcon exitIcon;
     private MazeLogo logo;
     private ImageIcon wholeLogo;
+    private final MazeDimensions mazeDimensions;
+    private TreeMap<MazeLocation, MazeCellGenericPanel> cells;
+    private Vector<MazeLocation> solutionPath;
 
     // Default side dimension for the cell
     private static final int DEFAULT_SIDE_DIM = 25;
@@ -36,6 +40,7 @@ public class MazeGridPanel extends JPanel implements Serializable {
      */
     public MazeGridPanel(MazeDimensions mazeDimensions) {
         super(new GridLayout(0, mazeDimensions.getWidth()));
+        this.mazeDimensions = mazeDimensions;
         try {
             this.entryIcon = getMazeBackgroundImageIcon("arrow.png");
             this.exitIcon = entryIcon;
@@ -53,6 +58,7 @@ public class MazeGridPanel extends JPanel implements Serializable {
      */
     public MazeGridPanel(MazeDimensions mazeDimensions, File startImage, File endImage) {
         super(new GridLayout(0, mazeDimensions.getWidth()));
+        this.mazeDimensions = mazeDimensions;
         try {
             this.entryIcon = getMazeBackgroundImageIcon(startImage);
             this.exitIcon = getMazeBackgroundImageIcon(endImage);
@@ -71,6 +77,7 @@ public class MazeGridPanel extends JPanel implements Serializable {
      */
     public MazeGridPanel(MazeDimensions mazeDimensions, File startImage, File endImage, MazeLogo logo) {
         super(new GridLayout(0, mazeDimensions.getWidth()));
+        this.mazeDimensions = mazeDimensions;
         this.logo = logo;
         try {
             this.entryIcon = getMazeBackgroundImageIcon(startImage);
@@ -89,6 +96,7 @@ public class MazeGridPanel extends JPanel implements Serializable {
      */
     public MazeGridPanel(MazeDimensions mazeDimensions, MazeLogo logo) {
         super(new GridLayout(0, mazeDimensions.getWidth()));
+        this.mazeDimensions = mazeDimensions;
         this.logo = logo;
         try {
             this.entryIcon = getMazeBackgroundImageIcon("arrow.png");
@@ -107,17 +115,38 @@ public class MazeGridPanel extends JPanel implements Serializable {
     private void setupGrid(MazeDimensions mazeDimensions) {
         this.rows = mazeDimensions.getHeight();
         this.cols = mazeDimensions.getWidth();
+        this.cells = new TreeMap<>();
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 if (entryCell(row, col)) {
-                    this.add(new MazeImageCellPanel(entryIcon, true));
+                    MazeCellGenericPanel mazeImageCellPanel = new MazeImageCellPanel(entryIcon, true);
+                    cells.put(
+                            new MazeLocation(row, col),
+                            mazeImageCellPanel
+                    );
+                    this.add(mazeImageCellPanel);
                 } else if (exitCell(row, col)) {
-                    this.add(new MazeImageCellPanel(exitIcon, true));
+                    MazeCellGenericPanel mazeImageCellPanel = new MazeImageCellPanel(exitIcon, true);
+                    cells.put(
+                            new MazeLocation(row, col),
+                            mazeImageCellPanel
+                    );
+                    this.add(mazeImageCellPanel);
                 } else if (logo != null && logo.withinLogoBounds(new MazeLocation(row, col))) {
-                    this.add(new MazeImageCellPanel(getLogoSlice(row, col), false));
+                    MazeCellGenericPanel mazeImageCellPanel = new MazeImageCellPanel(getLogoSlice(row, col), false);
+                    cells.put(
+                            new MazeLocation(row, col),
+                            mazeImageCellPanel
+                    );
+                    this.add(mazeImageCellPanel);
                 } else {
-                    this.add(new MazeCellPanel(defaultCellStatus(row, col)));
+                    MazeCellGenericPanel mazeImageCellPanel = new MazeCellPanel(defaultCellStatus(row, col));
+                    cells.put(
+                            new MazeLocation(row, col),
+                            mazeImageCellPanel
+                    );
+                    this.add(mazeImageCellPanel);
                 }
             }
         }
@@ -143,7 +172,6 @@ public class MazeGridPanel extends JPanel implements Serializable {
                         wholeImage.getSource(),
                         new CropImageFilter(startX, startY, DEFAULT_SIDE_DIM, DEFAULT_SIDE_DIM)));
         return new ImageIcon(croppedImage.getScaledInstance(DEFAULT_SIDE_DIM, DEFAULT_SIDE_DIM, Image.SCALE_SMOOTH));
-
     }
 
     /**
@@ -225,5 +253,43 @@ public class MazeGridPanel extends JPanel implements Serializable {
     private boolean exitCell(int row, int col) {
         // Exit cell
         return row == rows - 1 && col == cols - 2;
+    }
+
+    /**
+     * @return maze dimensions
+     */
+    public MazeDimensions getMazeDimensions() {
+        return mazeDimensions;
+    }
+
+    /**
+     * Show optimal maze solution on the grid
+     * @return maze solve-ability and dead end cells
+     */
+    public String[] showSolution() {
+        MazeLayout mazeLayout = new MazeLayout(mazeDimensions, cells);
+        MazeSolver mazeSolver = new MazeSolver();
+        solutionPath = mazeSolver.getOptimalSolution(mazeLayout);
+
+        for (MazeLocation cell : solutionPath) {
+            cells.get(cell).highlightSolution();
+        }
+        return new String[] {
+                String.format("%.2f", mazeSolver.getSolutionCellsProportionMetric(mazeLayout, solutionPath)) + "%",
+                String.format("%.2f", mazeSolver.getDeadEndCells(mazeLayout)) + "%"
+        };
+    }
+
+    /**
+     * Hide optimal maze solution
+     * @return maze solve-ability and dead end cells text placeholders
+     */
+    public String[] hideSolution() {
+        for (MazeLocation cell : solutionPath) {
+            cells.get(cell).unhighlightSolution();
+        }
+        return new String[] {
+                "-   ", "-"
+        };
     }
 }

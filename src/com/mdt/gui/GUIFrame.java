@@ -1,17 +1,24 @@
 package com.mdt.gui;
 
 import com.mdt.Program;
+import com.mdt.gui.adapters.ShowSolutionListener;
 import com.mdt.gui.mazeitems.MazeGridPanel;
 import com.mdt.maze.Maze;
 import com.mdt.maze.MazeMetadata;
+import com.mdt.mazedatabase.DBConnection;
+import com.mdt.mazedatabase.JDBCMazeDataSource;
 import com.mdt.mazedatabase.MazeDatabase;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * The top-level container of the application. All GUI panels and elements
@@ -20,7 +27,7 @@ import java.awt.event.WindowEvent;
  * used across the GUI. It also adds itself as an action listener for
  * JButtons in child classes.
  */
-public class GUIFrame extends JFrame implements ActionListener, Runnable {
+public class GUIFrame extends JFrame implements ActionListener, Runnable, ShowSolutionListener {
     // Define some fonts for use application-wide
     public static final Font SYSTEM_FONT = new JLabel().getFont(); // Default system font
     public static final Font HEADING_1 = GUIFrame.SYSTEM_FONT.deriveFont(Font.BOLD, 30.0F); // Large heading
@@ -49,7 +56,7 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
-        this.mazeDatabase = new MazeDatabase();
+        this.mazeDatabase = new MazeDatabase(new JDBCMazeDataSource(DBConnection.getInstance()));
 
         // Main JPanel setup
         cardLayout = new CardLayout();
@@ -66,7 +73,7 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         exportDialog = new ExportDialog(this);
         // Panel for generating and customizing Maze with dummy values for dimensions
         // Values are overridden once the user requests a new maze
-        mazeGenerationPanel = new MazeGenerationPanel();
+        mazeGenerationPanel = new MazeGenerationPanel(this);
         mainPanel.add(mazeGenerationPanel, "MazeGeneration");
 
         // Add mainPanel to JFrame
@@ -143,6 +150,16 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
      * selected mazes from the maze table
      */
     private void showExportDialog() {
+        int[] rowsToExport = landingPanel.mazeBrowserTable.getSelectedRows();
+        Vector<Maze> mazes = new Vector<>();
+        for (int row : rowsToExport) {
+            int modelIndex = landingPanel.mazeBrowserTable.convertRowIndexToModel(row);
+            DefaultTableModel tableModel = (DefaultTableModel) landingPanel.mazeBrowserTable.getModel();
+            MazeMetadata mazeToGet = new MazeMetadata(tableModel.getDataVector().elementAt(modelIndex));
+            mazes.add(mazeDatabase.getMaze(mazeToGet));
+        }
+
+        exportDialog.bindMazeGrids(mazes);
         exportDialog.setLocationRelativeTo(this);
         exportDialog.setVisible(true);
     }
@@ -161,6 +178,19 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
     }
 
     /**
+     * Shows or hides maze solution on the maze canvas
+     * @param showSolution show solution
+     * @return maze solve-ability and dead end cells
+     */
+    public String[] toggleMazeSolution(boolean showSolution) {
+        if (showSolution) {
+            return mazeGenerationPanel.mazeCanvasPanel.getMazeGrid().showSolution();
+        } else {
+            return mazeGenerationPanel.mazeCanvasPanel.getMazeGrid().hideSolution();
+        }
+    }
+
+    /**
      * Processes an ActionEvent
      * @param e ActionEvent originating from a component
      */
@@ -171,7 +201,6 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable {
         if (landingPanel.landingControlPanel.newMaze.equals(src)) {
             showNewMazeDialog();
         } else if (landingPanel.landingControlPanel.exportItems.equals(src)) {
-            int[] rowsToExport = landingPanel.mazeBrowserTable.getSelectedRows();
             showExportDialog();
         } else if (addMetadataPanel.progressControlPanel.nextButton.equals(src)) {
             showMazeGeneration();

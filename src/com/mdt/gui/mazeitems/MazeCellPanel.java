@@ -17,9 +17,34 @@ import java.util.Objects;
  * On hover, the cell is highlighted to show that
  * it can be clicked
  */
-public class MazeCellPanel extends JPanel implements Serializable {
+public class MazeCellPanel extends MazeCellGenericPanel implements Serializable {
     private boolean wallStatus;
     private final boolean enabledByDefault;
+
+    /**
+     * Highlight the cell if part of the maze solution
+     */
+    @Override
+    public void highlightSolution() {
+        this.setBackground(Color.GREEN);
+    }
+
+    /**
+     * Return cell to regular state, un-highlighted
+     */
+    @Override
+    public void unhighlightSolution() {
+        setBackgroundBasedOnWallStatus();
+    }
+
+    /**
+     * Check if the cell is a wall
+     * @return boolean indicating whether the cell is a wall
+     */
+    @Override
+    public boolean isWall() {
+        return wallStatus;
+    }
 
     /**
      * Implements actions on mouse click and hover

@@ -1,17 +1,24 @@
 package com.mdt.gui;
 
 import com.mdt.gui.generics.ProgressControlPanel;
+import com.mdt.gui.mazeitems.MazeGridPanel;
+import com.mdt.maze.Maze;
+import com.mdt.mazeexport.MazeExportHandler;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Exports selected mazes with or without the solution line
  * in the directory specified by the user
  */
 public class ExportDialog extends JDialog implements ActionListener {
+    private String exportDirectory;
     private final JPanel exportPropertiesPanel;
     private final ProgressControlPanel progressControlPanel;
     private final JLabel saveToLabel;
@@ -20,6 +27,7 @@ public class ExportDialog extends JDialog implements ActionListener {
     private final JCheckBox includeSolutionStatus;
     private final JLabel solutionPrompt;
     private final JFileChooser fileChooser;
+    private Vector<Maze> mazes;
 
     /**
      * Handles the configuration of the panel layout using the
@@ -74,10 +82,12 @@ public class ExportDialog extends JDialog implements ActionListener {
         exportPropertiesPanel = new JPanel(new GridBagLayout());
         progressControlPanel = new ProgressControlPanel("Export", "Cancel");
 
+        exportDirectory = System.getProperty("user.home");
         saveToLabel = new JLabel("Export to:");
-        dirField = new JTextField("/Users/maze_user/Pictures");
+        dirField = new JTextField(exportDirectory);
         fileChooserBtn = new JButton("...");
         includeSolutionStatus = new JCheckBox();
+
         solutionPrompt = new JLabel("Include optimal solution path");
         fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -102,7 +112,22 @@ public class ExportDialog extends JDialog implements ActionListener {
      * Allows the user to select the directories
      */
     public void showFileChooser() {
-        fileChooser.showDialog(this, "Select");
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setDialogTitle("Export Directory");
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        int selection = fileChooser.showOpenDialog(null);
+        if (selection == JFileChooser.APPROVE_OPTION) {
+            exportDirectory = fileChooser.getSelectedFile().getAbsolutePath();
+            dirField.setText(exportDirectory);
+        }
+    }
+
+    /**
+     * Selects which mazes will be exported
+     * @param mazes mazes to be exported
+     */
+    public void bindMazeGrids(Vector<Maze> mazes) {
+        this.mazes = mazes;
     }
 
     /**
@@ -116,8 +141,10 @@ public class ExportDialog extends JDialog implements ActionListener {
         if (fileChooserBtn.equals(src)) {
             showFileChooser();
         } else if (progressControlPanel.nextButton.equals(src)) {
-            // Invoke actions to export
-            // For now, just shut the dialog
+            MazeExportHandler exportHandler = new MazeExportHandler(exportDirectory, includeSolutionStatus.isSelected());
+            for (Maze maze : mazes) {
+                exportHandler.exportMaze(maze);
+            }
             this.dispose();
         } else if (progressControlPanel.prevButton.equals(src)) {
             this.dispose();

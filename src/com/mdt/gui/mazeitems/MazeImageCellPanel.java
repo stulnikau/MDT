@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
-public class MazeImageCellPanel extends JPanel implements Serializable {
+public class MazeImageCellPanel extends MazeCellGenericPanel implements Serializable {
     private final boolean isEntryExit;
 
     /**
@@ -25,5 +25,30 @@ public class MazeImageCellPanel extends JPanel implements Serializable {
      */
     public boolean isEntryExit() {
         return isEntryExit;
+    }
+
+    /**
+     * Highlight the cell if part of the maze solution
+     */
+    @Override
+    public void highlightSolution() {
+
+    }
+
+    /**
+     * Return cell to regular state, un-highlighted
+     */
+    @Override
+    public void unhighlightSolution() {
+
+    }
+
+    /**
+     * Check if the cell is a wall
+     * @return boolean indicating whether the cell is a wall
+     */
+    @Override
+    public boolean isWall() {
+        return !isEntryExit;
     }
 }

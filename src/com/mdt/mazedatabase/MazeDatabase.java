@@ -11,12 +11,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MazeDatabase {
     DefaultTableModel mazeTableModel;
-    JDBCMazeDataSource mazeDataSource;
+    MazeDataSource mazeDataSource;
 
-    public MazeDatabase() {
+    public MazeDatabase(MazeDataSource dataSource) {
         mazeTableModel = new DefaultTableModel();
         mazeTableModel.setColumnIdentifiers(new String[]{"Name", "Author", "Date created", "Date modified"});
-        mazeDataSource = new JDBCMazeDataSource();
+        mazeDataSource = dataSource;
 
         // Copy database entries to the table model
         for (MazeMetadata mazeMetadata : mazeDataSource.getMazeMetadataSet()) {

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Describes any location on the maze
  */
-public class MazeLocation implements Serializable {
+public class MazeLocation implements Serializable, Comparable {
     private final int row;
     private final int col;
 
@@ -36,5 +36,20 @@ public class MazeLocation implements Serializable {
      */
     public int getCol() {
         return col;
+    }
+
+    @Override
+    public String toString() {
+        return row + ", " + col;
+    }
+
+    /**
+     * Compares this object with the specified object for order.  Returns a
+     * negative integer, zero, or a positive integer as this object is less
+     * than, equal to, or greater than the specified object.
+     */
+    @Override
+    public int compareTo(Object o) {
+        return toString().compareTo(o.toString());
     }
 }
