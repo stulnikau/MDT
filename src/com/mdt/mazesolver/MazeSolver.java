@@ -4,7 +4,6 @@ import com.mdt.maze.MazeLayout;
 import com.mdt.maze.MazeLocation;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -26,6 +25,14 @@ public class MazeSolver {
         return new MazeLocation(mazeLocation.getRow() + i, mazeLocation.getCol() + j);
     }
 
+    /**
+     * Implementation of DFS algorithm for maze solution finding
+     * Credit: Baeldung https://www.baeldung.com/java-solve-maze
+     * @param maze maze layout
+     * @param mazeLocation current maze location
+     * @param path current solution path
+     * @return whether the current location is part of the solution
+     */
     private boolean explore(MazeLayout maze, MazeLocation mazeLocation, List<MazeLocation> path) {
         if (
                 !maze.isValidLocation(mazeLocation)
@@ -56,28 +63,8 @@ public class MazeSolver {
             }
         }
 
-        path.remove(path.size() - 1);
+        if (path.size() > 0) {path.remove(path.size() - 1);}
         return false;
-    }
-
-    /**
-     * Gets the percentage of cells that are reached by the
-     * optimal solution to the maze
-     * @return number of cells expressed as a percentage of
-     * the total number of cells in the maze. Returns 0 if
-     * no solution exists
-     */
-    public double getCellsReachedByOptimalSolution() {
-        return 0;
-    }
-
-    /**
-     * Gets the percentage of cells that are dead ends
-     * @return number of cells expressed as a percentage of
-     * the total number of cells in the maze
-     */
-    public double getDeadEndCells() {
-        return 0;
     }
 
     /**
@@ -94,5 +81,65 @@ public class MazeSolver {
                 path
         );
         return new Vector<>(path);
+    }
+
+    /**
+     * Get the number of non-wall cells in the layout
+     * @return count of non-wall cells in the layout
+     */
+    private int freeCells(MazeLayout mazeLayout) {
+        int freeCells = 0;
+        for (int row = 0; row < mazeLayout.getDimensions().getHeight(); row++) {
+            for (int col = 0; col < mazeLayout.getDimensions().getWidth(); col++) {
+                if (!mazeLayout.isWall(new MazeLocation(row, col))) {freeCells++;}
+            }
+        }
+        return freeCells;
+    }
+
+    /**
+     * @param mazeLayout maze layout
+     * @param mazeLocation maze location
+     * @return whether a free cell has 3 walls around it (only 1 exit)
+     */
+    private boolean deadEndCell(MazeLayout mazeLayout, MazeLocation mazeLocation) {
+        int walls = 0;
+        for (int[] move : DIRECTIONS) {
+            if (!mazeLayout.isWall(mazeLocation)
+                    && mazeLayout.isValidLocation(getNextMazeLocation(mazeLocation, move[0], move[1]))
+                    && mazeLayout.isWall(getNextMazeLocation(mazeLocation, move[0], move[1]))) {walls++;}
+        }
+        return walls == 3;
+    }
+
+    /**
+     * Get the proportion of free cells in maze that are reached by the solution
+     * @param mazeLayout maze layout
+     * @param solution maze solution
+     * @return proportion of cells
+     */
+    public double getSolutionCellsProportionMetric(MazeLayout mazeLayout, Vector<MazeLocation> solution) {
+        int freeCells = freeCells(mazeLayout);
+        int solutionCells = solution.size();
+        return (double) solutionCells / (double) freeCells;
+    }
+
+    /**
+     * Get the proportion of dead end cells in maze
+     * @param mazeLayout maze layout
+     * @return proportion of dead end cells
+     */
+    public double getDeadEndCells(MazeLayout mazeLayout) {
+        int freeCells = freeCells(mazeLayout);
+
+        int deadEnds = 0;
+        for (int row = 0; row < mazeLayout.getDimensions().getHeight(); row++) {
+            for (int col = 0; col < mazeLayout.getDimensions().getWidth(); col++) {
+                if (deadEndCell(mazeLayout, new MazeLocation(row, col))) {
+                    deadEnds++;
+                }
+            }
+        }
+        return (double) deadEnds / (double) freeCells;
     }
 }

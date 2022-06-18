@@ -49,6 +49,6 @@ public class MazeImageCellPanel extends MazeCellGenericPanel implements Serializ
      */
     @Override
     public boolean isWall() {
-        return false;
+        return !isEntryExit;
     }
 }

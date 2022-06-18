@@ -84,4 +84,11 @@ public class TestMazeLayout {
         assertEquals(0, mazeLayout.getEntry().getRow());
         assertEquals(1, mazeLayout.getEntry().getCol());
     }
+
+    @Test
+    public void TestDimensions() {
+        MazeLayout mazeLayout = new MazeLayout(new MazeDimensions(5, 10), new TreeMap<>());
+        assertEquals(5, mazeLayout.getDimensions().getWidth());
+        assertEquals(10, mazeLayout.getDimensions().getHeight());
+    }
 }

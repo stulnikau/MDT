@@ -9,7 +9,6 @@ import com.mdt.mazesolver.MazeSolver;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
 import java.io.*;
@@ -265,8 +264,9 @@ public class MazeGridPanel extends JPanel implements Serializable {
 
     /**
      * Show optimal maze solution on the grid
+     * @return maze solve-ability and dead end cells
      */
-    public void showSolution() {
+    public String[] showSolution() {
         MazeLayout mazeLayout = new MazeLayout(mazeDimensions, cells);
         MazeSolver mazeSolver = new MazeSolver();
         solutionPath = mazeSolver.getOptimalSolution(mazeLayout);
@@ -274,14 +274,22 @@ public class MazeGridPanel extends JPanel implements Serializable {
         for (MazeLocation cell : solutionPath) {
             cells.get(cell).highlightSolution();
         }
+        return new String[] {
+                String.format("%.2f", mazeSolver.getSolutionCellsProportionMetric(mazeLayout, solutionPath)) + "%",
+                String.format("%.2f", mazeSolver.getDeadEndCells(mazeLayout)) + "%"
+        };
     }
 
     /**
      * Hide optimal maze solution
+     * @return maze solve-ability and dead end cells text placeholders
      */
-    public void hideSolution() {
+    public String[] hideSolution() {
         for (MazeLocation cell : solutionPath) {
             cells.get(cell).unhighlightSolution();
         }
+        return new String[] {
+                "-   ", "-"
+        };
     }
 }

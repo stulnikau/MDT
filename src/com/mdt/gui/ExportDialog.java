@@ -28,7 +28,6 @@ public class ExportDialog extends JDialog implements ActionListener {
     private final JLabel solutionPrompt;
     private final JFileChooser fileChooser;
     private Vector<Maze> mazes;
-    private boolean showSolution;
 
     /**
      * Handles the configuration of the panel layout using the
@@ -80,8 +79,6 @@ public class ExportDialog extends JDialog implements ActionListener {
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
-        showSolution = false;
-
         exportPropertiesPanel = new JPanel(new GridBagLayout());
         progressControlPanel = new ProgressControlPanel("Export", "Cancel");
 
@@ -90,13 +87,7 @@ public class ExportDialog extends JDialog implements ActionListener {
         dirField = new JTextField(exportDirectory);
         fileChooserBtn = new JButton("...");
         includeSolutionStatus = new JCheckBox();
-        includeSolutionStatus.addItemListener(e -> {
-            if (e.getStateChange() == ItemEvent.SELECTED) {
-                showSolution = true;
-            } else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                showSolution = false;
-            }
-        });
+
         solutionPrompt = new JLabel("Include optimal solution path");
         fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -150,7 +141,7 @@ public class ExportDialog extends JDialog implements ActionListener {
         if (fileChooserBtn.equals(src)) {
             showFileChooser();
         } else if (progressControlPanel.nextButton.equals(src)) {
-            MazeExportHandler exportHandler = new MazeExportHandler(exportDirectory, showSolution);
+            MazeExportHandler exportHandler = new MazeExportHandler(exportDirectory, includeSolutionStatus.isSelected());
             for (Maze maze : mazes) {
                 exportHandler.exportMaze(maze);
             }

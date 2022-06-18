@@ -8,11 +8,13 @@ import java.util.Vector;
 
 /**
  * Container for the layout of the maze, used for maze solving
+ * Credit: https://github.com/eugenp/tutorials/blob/master/algorithms-modules/algorithms-miscellaneous-2/src/main/java/com/baeldung/algorithms/maze/solver/Maze.java
  */
 public class MazeLayout {
     MazeDimensions dimensions;
     Map<MazeLocation, MazeCellGenericPanel> cells;
     Vector<MazeLocation> explored;
+    private boolean[][] visited;
 
     /**
      * Container for the layout of the maze, used for maze solving
@@ -23,6 +25,7 @@ public class MazeLayout {
         this.dimensions = dimensions;
         this.cells = cells;
         explored = new Vector<>();
+        visited = new boolean[dimensions.getHeight()][dimensions.getWidth()];
     }
 
     /**
@@ -46,7 +49,7 @@ public class MazeLayout {
      * @return if the cell has already been marked as visited
      */
     public boolean isExplored(MazeLocation mazeLocation) {
-        return explored.contains(mazeLocation);
+        return visited[mazeLocation.getRow()][mazeLocation.getCol()];
     }
 
     /**
@@ -56,9 +59,7 @@ public class MazeLayout {
      *                    be set as explored
      */
     public void setVisited(MazeLocation mazeLocation, boolean visitedFlag) {
-        if (visitedFlag) {
-            explored.add(mazeLocation);
-        }
+        visited[mazeLocation.getRow()][mazeLocation.getCol()] = visitedFlag;
     }
 
     /**
@@ -68,6 +69,13 @@ public class MazeLayout {
     public boolean isExit(MazeLocation mazeLocation) {
         return ((mazeLocation.getRow() == dimensions.getHeight() - 1)
                 && (mazeLocation.getCol() == dimensions.getWidth() - 2));
+    }
+
+    /**
+     * @return layout dimensions
+     */
+    public MazeDimensions getDimensions() {
+        return dimensions;
     }
 
     /**

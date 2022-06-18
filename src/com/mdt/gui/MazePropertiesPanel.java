@@ -84,12 +84,16 @@ public class MazePropertiesPanel extends JPanel {
         header = new JLabel("Maze Properties");
         header.setFont(GUIFrame.HEADING_3);
 
-        reachabilityLabel = new JLabel("Cells reached by solution: 27%");
-        deadEndLabel = new JLabel("Dead end cells: 16%");
+        reachabilityLabel = new JLabel("Cells reached by solution: -   ");
+        deadEndLabel = new JLabel("Dead end cells: -");
         autoGenerate = new JButton("Autogenerate Maze");
         solutionPrompt = new JLabel("Show maze solution");
         solutionStatus = new JCheckBox();
-        solutionStatus.addItemListener(e -> listener.toggleMazeSolution(e.getStateChange() == ItemEvent.SELECTED));
+        solutionStatus.addItemListener(e -> {
+            String[] metrics = listener.toggleMazeSolution(e.getStateChange() == ItemEvent.SELECTED);
+            reachabilityLabel.setText("Cells reached by solution: " + metrics[0]);
+            deadEndLabel.setText("Dead end cells: " + metrics[1]);
+        });
 
         setupLayout();
     }

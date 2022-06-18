@@ -180,12 +180,13 @@ public class GUIFrame extends JFrame implements ActionListener, Runnable, ShowSo
     /**
      * Shows or hides maze solution on the maze canvas
      * @param showSolution show solution
+     * @return maze solve-ability and dead end cells
      */
-    public void toggleMazeSolution(boolean showSolution) {
+    public String[] toggleMazeSolution(boolean showSolution) {
         if (showSolution) {
-            mazeGenerationPanel.mazeCanvasPanel.getMazeGrid().showSolution();
+            return mazeGenerationPanel.mazeCanvasPanel.getMazeGrid().showSolution();
         } else {
-            mazeGenerationPanel.mazeCanvasPanel.getMazeGrid().hideSolution();
+            return mazeGenerationPanel.mazeCanvasPanel.getMazeGrid().hideSolution();
         }
     }
 

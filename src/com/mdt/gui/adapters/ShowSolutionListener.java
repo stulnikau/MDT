@@ -7,6 +7,7 @@ public interface ShowSolutionListener {
     /**
      * Shows or hides maze solution on the maze canvas
      * @param showSolution show solution
+     * @return two Strings: maze solve-ability metric and dead end cells
      */
-    void toggleMazeSolution(boolean showSolution);
+    String[] toggleMazeSolution(boolean showSolution);
 }
