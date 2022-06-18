@@ -50,7 +50,7 @@ jobs:
         cache: maven
     - uses: actions/checkout@v3
     - name: Test
-      run: mvn --batch-mode --update-snapshots test
+      run: mvn --batch-mode --update-snapshots test -Dtest=\!*Integration
   
   package:
     runs-on: ubuntu-latest
