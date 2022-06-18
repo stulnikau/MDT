@@ -10,7 +10,7 @@ import org.junit.jupiter.api.*;
 
 import java.io.File;
 
-public class TestMazeExportHandler {
+public class TestMazeExportHandlerIntegration {
     @Test
     public void TestMazeExport() {
         MazeExportHandler exportHandler = new MazeExportHandler("testoutput", false);
