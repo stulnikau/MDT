@@ -13,6 +13,8 @@ import javax.swing.*;
 public class MazeBrowserTable extends JTable {
     /**
      * Creates a new maze database table viewer in the GUI
+     * @param mazeDatabase maze database reference acting as provider of
+     *                     the list of mazes displayed in the maze table
      */
     public MazeBrowserTable(MazeDatabase mazeDatabase) {
         super(mazeDatabase.getMazeTableModel());

@@ -23,6 +23,8 @@ public class LandingPanel extends JPanel {
 
     /**
      * Creates a new LandingPanel to be viewed in the GUI
+     * @param mazeDatabase maze database reference acting as provider of
+     *                     the list of mazes displayed in the maze table
      */
     public LandingPanel(MazeDatabase mazeDatabase) {
         super(new BorderLayout());

@@ -12,6 +12,8 @@ public class PropertiesPanel extends JPanel {
 
     /**
      * Creates a new properties panel
+     * @param listener object listening for clicks on the show solution checkbox
+     *                 in maze properties panel
      */
     public PropertiesPanel(ShowSolutionListener listener) {
         super(new BorderLayout());

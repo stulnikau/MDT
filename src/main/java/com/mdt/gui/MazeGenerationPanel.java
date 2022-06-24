@@ -26,6 +26,8 @@ public class MazeGenerationPanel extends JPanel {
 
     /**
      * Creates a new panel for generating a maze
+     * @param listener object listening for clicks on the show solution checkbox
+     *                 in maze properties panel
      */
     public MazeGenerationPanel(ShowSolutionListener listener) {
         super(new BorderLayout());

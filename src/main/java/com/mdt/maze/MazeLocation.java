@@ -35,6 +35,10 @@ public class MazeLocation implements Serializable, Comparable {
         return col;
     }
 
+    /**
+     * Gets a string representation in the form row, col
+     * @return
+     */
     @Override
     public String toString() {
         return row + ", " + col;

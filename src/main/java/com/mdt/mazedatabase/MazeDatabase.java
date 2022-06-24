@@ -13,6 +13,10 @@ public class MazeDatabase {
     DefaultTableModel mazeTableModel;
     MazeDataSource mazeDataSource;
 
+    /**
+     * Creates a maze database instance with the provided data source
+     * @param dataSource data source supporting read and write
+     */
     public MazeDatabase(MazeDataSource dataSource) {
         mazeTableModel = new DefaultTableModel();
         mazeTableModel.setColumnIdentifiers(new String[]{"Name", "Author", "Date created", "Date modified"});

@@ -78,6 +78,8 @@ public class MazePropertiesPanel extends JPanel {
 
     /**
      * Creates a new MazePropertiesPanel
+     * @param listener object listening for clicks on the show solution checkbox
+     *                 in maze properties panel
      */
     public MazePropertiesPanel(ShowSolutionListener listener) {
         super(new GridBagLayout());
